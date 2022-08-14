@@ -1,0 +1,21 @@
+--cpu Cortex-M0
+".\objects\main.o"
+".\objects\utility.o"
+".\objects\fifo.o"
+".\objects\croutine.o"
+".\objects\event_groups.o"
+".\objects\list.o"
+".\objects\queue.o"
+".\objects\tasks.o"
+".\objects\timers.o"
+".\objects\stream_buffer.o"
+".\objects\heap_4.o"
+".\objects\port.o"
+".\objects\sys.o"
+".\objects\uart.o"
+".\objects\retarget.o"
+".\objects\startup_nano100series.o"
+".\objects\system_nano100series.o"
+--ro-base 0x00000000 --entry 0x00000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\project.map" -o .\Objects\project.axf
