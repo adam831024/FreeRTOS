@@ -1,4 +1,4 @@
 # FreeRTOS
 simple system
-IDE: keil\n
+IDE: keil,
 Chip: Nuvoton Nano130
