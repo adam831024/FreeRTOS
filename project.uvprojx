@@ -431,6 +431,21 @@
               <FileType>1</FileType>
               <FilePath>.\src\fifo.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>rgb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\rgb.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\uart1.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -930,6 +945,21 @@
               <FileName>fifo.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\fifo.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>rgb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\rgb.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\uart1.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -1,5 +1,5 @@
 Dependencies for Project 'project', Target 'Target 1': (DO NOT MODIFY !)
-F (.\src\main.c)(0x62FEF124)(-c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\FreeRTOS\inc -I.\inc -I.\FreeRTOS\port\RVDS\ARM_CM0-I C:\Users\vincent\Desktop\FreeRTOS\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include-D__UVISION_VERSION="516" -D_RTE_-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\src\main.c)(0x62FF4CF5)(-c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\FreeRTOS\inc -I.\inc -I.\FreeRTOS\port\RVDS\ARM_CM0-I C:\Users\vincent\Desktop\FreeRTOS\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include-D__UVISION_VERSION="516" -D_RTE_-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55AEF5F2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AEF5F2)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include\Nano100Series.h)(0x55C415C4)
@@ -28,7 +28,7 @@ I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\usbd.h)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\wdt.h)(0x55C40F12)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\wwdt.h)(0x55C40F12)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\i2s.h)(0x55C40F10)
-I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\lcd.h)(0x55C40F10)
+I (.\inc\lcd.h)(0x62FF51A2)
 I (.\FreeRTOS\inc\FreeRTOS.h)(0x62FEF4CD)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x55AEF5F2)
 I (.\inc\FreeRTOSConfig.h)(0x62FED842)
@@ -42,10 +42,10 @@ I (.\FreeRTOS\inc\queue.h)(0x62FEF4CD)
 I (.\FreeRTOS\inc\task.h)(0x62FEF4CD)
 I (.\FreeRTOS\inc\list.h)(0x62FEF4CD)
 I (.\FreeRTOS\inc\timers.h)(0x62FEF4CD)
-I (.\inc\utility.h)(0x62FEF290)
+I (.\inc\utility.h)(0x62FF5418)
 I (.\inc\fifo.h)(0x62FED842)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55AEF5F2)
-F (.\src\utility.c)(0x62FEF224)(-c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\FreeRTOS\inc -I.\inc -I.\FreeRTOS\port\RVDS\ARM_CM0-I C:\Users\vincent\Desktop\FreeRTOS\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include-D__UVISION_VERSION="516" -D_RTE_-o .\objects\utility.o --omf_browse .\objects\utility.crf --depend .\objects\utility.d)
+F (.\src\utility.c)(0x62FF4C36)(-c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\FreeRTOS\inc -I.\inc -I.\FreeRTOS\port\RVDS\ARM_CM0-I C:\Users\vincent\Desktop\FreeRTOS\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include-D__UVISION_VERSION="516" -D_RTE_-o .\objects\utility.o --omf_browse .\objects\utility.crf --depend .\objects\utility.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AEF5F2)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include\Nano100Series.h)(0x55C415C4)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cm0.h)(0x55093C04)
@@ -73,11 +73,18 @@ I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\usbd.h)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\wdt.h)(0x55C40F12)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\wwdt.h)(0x55C40F12)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\i2s.h)(0x55C40F10)
-I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\lcd.h)(0x55C40F10)
+I (.\inc\lcd.h)(0x62FF51A2)
 I (.\inc\FreeRTOSConfig.h)(0x62FED842)
 F (.\src\fifo.c)(0x62FEEF59)(-c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\FreeRTOS\inc -I.\inc -I.\FreeRTOS\port\RVDS\ARM_CM0-I C:\Users\vincent\Desktop\FreeRTOS\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include-D__UVISION_VERSION="516" -D_RTE_-o .\objects\fifo.o --omf_browse .\objects\fifo.crf --depend .\objects\fifo.d)
 I (.\inc\fifo.h)(0x62FED842)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55AEF5F2)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AEF5F2)
+F (.\src\lcd.c)(0x62FF54FA)(-c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\FreeRTOS\inc -I.\inc -I.\FreeRTOS\port\RVDS\ARM_CM0-I C:\Users\vincent\Desktop\FreeRTOS\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include-D__UVISION_VERSION="516" -D_RTE_-o .\objects\lcd.o --omf_browse .\objects\lcd.crf --depend .\objects\lcd.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AEF5F2)
+I (.\inc\lcd.h)(0x62FF51A2)
+F (.\src\rgb.c)(0x62FF508F)(-c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\FreeRTOS\inc -I.\inc -I.\FreeRTOS\port\RVDS\ARM_CM0-I C:\Users\vincent\Desktop\FreeRTOS\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include-D__UVISION_VERSION="516" -D_RTE_-o .\objects\rgb.o --omf_browse .\objects\rgb.crf --depend .\objects\rgb.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AEF5F2)
+F (.\src\uart1.c)(0x62FF53C6)(-c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\FreeRTOS\inc -I.\inc -I.\FreeRTOS\port\RVDS\ARM_CM0-I C:\Users\vincent\Desktop\FreeRTOS\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include-D__UVISION_VERSION="516" -D_RTE_-o .\objects\uart1.o --omf_browse .\objects\uart1.crf --depend .\objects\uart1.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AEF5F2)
 F (.\FreeRTOS\src\croutine.c)(0x62FEF4CD)(-c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\FreeRTOS\inc -I.\inc -I.\FreeRTOS\port\RVDS\ARM_CM0-I C:\Users\vincent\Desktop\FreeRTOS\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include-D__UVISION_VERSION="516" -D_RTE_-o .\objects\croutine.o --omf_browse .\objects\croutine.crf --depend .\objects\croutine.d)
 I (.\FreeRTOS\inc\FreeRTOS.h)(0x62FEF4CD)
@@ -233,8 +240,8 @@ I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\usbd.h)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\wdt.h)(0x55C40F12)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\wwdt.h)(0x55C40F12)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\i2s.h)(0x55C40F10)
-I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\lcd.h)(0x55C40F10)
-F (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\uart.c)(0x55C40F14)(-c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\FreeRTOS\inc -I.\inc -I.\FreeRTOS\port\RVDS\ARM_CM0-I C:\Users\vincent\Desktop\FreeRTOS\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include-D__UVISION_VERSION="516" -D_RTE_-o .\objects\uart.o --omf_browse .\objects\uart.crf --depend .\objects\uart.d)
+I (.\inc\lcd.h)(0x62FF51A2)
+F (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\uart.c)(0x55C40F14)(-c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\FreeRTOS\inc -I.\inc -I.\FreeRTOS\port\RVDS\ARM_CM0-I C:\Users\vincent\Desktop\FreeRTOS\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include-D__UVISION_VERSION="516" -D_RTE_-o .\objects\uart_1.o --omf_browse .\objects\uart_1.crf --depend .\objects\uart_1.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55AEF5F2)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include\Nano100Series.h)(0x55C415C4)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cm0.h)(0x55093C04)
@@ -263,7 +270,7 @@ I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\usbd.h)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\wdt.h)(0x55C40F12)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\wwdt.h)(0x55C40F12)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\i2s.h)(0x55C40F10)
-I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\lcd.h)(0x55C40F10)
+I (.\inc\lcd.h)(0x62FF51A2)
 F (RTE\Device\NANO130KE3BN\retarget.c)(0x62FEF4CD)(-c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\FreeRTOS\inc -I.\inc -I.\FreeRTOS\port\RVDS\ARM_CM0-I C:\Users\vincent\Desktop\FreeRTOS\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include-D__UVISION_VERSION="516" -D_RTE_-o .\objects\retarget.o --omf_browse .\objects\retarget.crf --depend .\objects\retarget.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55AEF5F2)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include\Nano100Series.h)(0x55C415C4)
@@ -293,7 +300,7 @@ I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\usbd.h)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\wdt.h)(0x55C40F12)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\wwdt.h)(0x55C40F12)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\i2s.h)(0x55C40F10)
-I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\lcd.h)(0x55C40F10)
+I (.\inc\lcd.h)(0x62FF51A2)
 F (RTE\Device\NANO130KE3BN\startup_Nano100Series.s)(0x62FEF4CD)(--cpu Cortex-M0 --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Users\vincent\Desktop\FreeRTOS\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include--pd "__UVISION_VERSION SETA 516" --pd "_RTE_ SETA 1"--list .\listings\startup_nano100series.lst --xref -o .\objects\startup_nano100series.o --depend .\objects\startup_nano100series.d)
 F (RTE\Device\NANO130KE3BN\system_Nano100Series.c)(0x62FEF4CD)(-c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\FreeRTOS\inc -I.\inc -I.\FreeRTOS\port\RVDS\ARM_CM0-I C:\Users\vincent\Desktop\FreeRTOS\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver-I C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include-D__UVISION_VERSION="516" -D_RTE_-o .\objects\system_nano100series.o --omf_browse .\objects\system_nano100series.crf --depend .\objects\system_nano100series.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AEF5F2)
@@ -323,4 +330,4 @@ I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\usbd.h)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\wdt.h)(0x55C40F12)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\wwdt.h)(0x55C40F12)
 I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\i2s.h)(0x55C40F10)
-I (C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\lcd.h)(0x55C40F10)
+I (.\inc\lcd.h)(0x62FF51A2)

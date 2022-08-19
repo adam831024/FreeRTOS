@@ -27,7 +27,7 @@
 .\objects\main.o: C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\wdt.h
 .\objects\main.o: C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\wwdt.h
 .\objects\main.o: C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\i2s.h
-.\objects\main.o: C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\lcd.h
+.\objects\main.o: .\inc\lcd.h
 .\objects\main.o: .\FreeRTOS\inc\FreeRTOS.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\main.o: .\inc\FreeRTOSConfig.h

@@ -80,8 +80,8 @@ TimerHandle_t parserTimerHandle = NULL;
 /******************************************************************************
  * Function Prototypes
  *******************************************************************************/
-static void vTaskEvent(void *pvParameters);
-static void vTaskUartParser(void *pvParameters);
+static void mainTask(void *pvParameters);
+static void uartTask(void *pvParameters);
 
 /******************************************************************************
  * Function Definitions
@@ -91,8 +91,8 @@ static void vTaskUartParser(void *pvParameters);
  */
 void taskCreate(void)
 {
-	xTaskCreate(vTaskUartParser, "vTaskUartParser", 2048 /*usStackDepth = 1024*16bits*/, NULL /*parameter*/, 5 /*Priority*/, NULL /*CreatedTaskHandle*/);
-	xTaskCreate(vTaskEvent, "vTaskEvent", 1024, NULL /*pvParameters parameter for C function*/, 5, NULL /*pxCreatedTask*/);
+	xTaskCreate(uartTask, "uartTask", 2048 /*usStackDepth = 1024*16bits*/, NULL /*parameter*/, 5 /*Priority*/, NULL /*CreatedTaskHandle*/);
+	xTaskCreate(mainTask, "mainTask", 1024, NULL /*pvParameters parameter for C function*/, 4, NULL /*pxCreatedTask*/);
 }
 /******************************************************************************
  * @brief     UART data parser
@@ -246,7 +246,7 @@ RELOOP:
  * @param[out] pvParameters             event arg
  * @return                              void
  *******************************************************************************/
-static void vTaskUartParser(void *pvParameters)
+static void uartTask(void *pvParameters)
 {
 	while (1)
 	{
@@ -279,7 +279,7 @@ static void vTaskUartParser(void *pvParameters)
  * @param[out] pvParameters             event arg
  * @return                              void
  *******************************************************************************/
-static void vTaskEvent(void *pvParameters)
+static void mainTask(void *pvParameters)
 {
 	while (1)
 	{
@@ -334,17 +334,17 @@ static void parserTimerCb(TimerHandle_t xTimer)
  *******************************************************************************/
 static void timerInit(void)
 {
-	stateCheckTimerHandle = xTimerCreate("nfStaffTimer" /* The timer name. */,
-																		1000 / portTICK_PERIOD_MS /*const TickType_t xTimerPeriodInTicks*/,
-																		pdTRUE /*const UBaseType_t uxAutoReload, pdFALSE for on shot, pdTRUE for period*/,
-																		NULL /*void * const pvTimerID*/,
-																		stateCheckTimerCb /*TimerCallbackFunction_t pxCallbackFunction*/);
+	stateCheckTimerHandle = xTimerCreate("stateCheck" /* The timer name. */,
+										1000 / portTICK_PERIOD_MS /*const TickType_t xTimerPeriodInTicks*/,
+										pdTRUE /*const UBaseType_t uxAutoReload, pdFALSE for on shot, pdTRUE for period*/,
+										NULL /*void * const pvTimerID*/,
+										stateCheckTimerCb /*TimerCallbackFunction_t pxCallbackFunction*/);
 	parserTimerHandle = xTimerCreate("nfParserTimer" /* The timer name. */,
-																		 5000 / portTICK_PERIOD_MS /*const TickType_t xTimerPeriodInTicks*/,
-																		 pdFALSE /*const UBaseType_t uxAutoReload, pdFALSE for on shot, pdTRUE for period*/,
-																		 NULL /*void * const pvTimerID*/,
-																		 parserTimerCb /*TimerCallbackFunction_t pxCallbackFunction*/);
-	// xTimerStart(stateCheckTimerHandle, 0);
+										5000 / portTICK_PERIOD_MS /*const TickType_t xTimerPeriodInTicks*/,
+										pdFALSE /*const UBaseType_t uxAutoReload, pdFALSE for on shot, pdTRUE for period*/,
+										NULL /*void * const pvTimerID*/,
+										parserTimerCb /*TimerCallbackFunction_t pxCallbackFunction*/);
+	xTimerStart(stateCheckTimerHandle, 0);
 }
 
 /******************************************************************************
@@ -355,20 +355,30 @@ static void timerInit(void)
  *******************************************************************************/
 int main(int argc, char const *argv[])
 {
-	//TODO: enter critical section
-	/*systick時鐘為HCLK，中斷時間間隔1ms*/
-	SysTick_Config(SystemCoreClock / 1000);
-	
+	taskENTER_CRITICAL();
+
 	eventsHandle = xSemaphoreCreateCounting(10, 0);
 	if( !eventsHandle ) 
 	{ 
 		/*semaphore fail create*/ 
 	} 
+	delayInit();
 	taskCreate();
 	timerInit();
-	FifoInit(&fifoBuffer, uartFifoBuffer, CMD_MAX_SIZE);	/*fifo init*/
-	//TODO: exit critical section
+	/*fifo init*/
+	FifoInit(&fifoBuffer, uartFifoBuffer, CMD_MAX_SIZE);	
+	taskEXIT_CRITICAL();
 	/* Start the scheduler. */
     vTaskStartScheduler();
 	return 0;
 }
+/*************** END OF FUNCTIONS *********************************************/
+/**
+ * further step
+ * 1. UART Tx, Rx
+ * 2. UART parser, handler
+ * 3. data pass through task
+ * 4. LCD
+ * 5. RGB
+ * 6. malloc , vPortFree(), pvPortMalloc()
+*/
