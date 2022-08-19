@@ -28,9 +28,6 @@
 .\objects\main.o: C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\wwdt.h
 .\objects\main.o: C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\i2s.h
 .\objects\main.o: C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\lcd.h
-.\objects\main.o: .\inc\utility.h
-.\objects\main.o: .\inc\fifo.h
-.\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\main.o: .\FreeRTOS\inc\FreeRTOS.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\main.o: .\inc\FreeRTOSConfig.h
@@ -44,3 +41,6 @@
 .\objects\main.o: .\FreeRTOS\inc\task.h
 .\objects\main.o: .\FreeRTOS\inc\list.h
 .\objects\main.o: .\FreeRTOS\inc\timers.h
+.\objects\main.o: .\inc\utility.h
+.\objects\main.o: .\inc\fifo.h
+.\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

@@ -13,7 +13,7 @@ License: Revised BSD License, see LICENSE.TXT file include in the project
 Maintainer: Miguel Luis and Gregory Cristian
 */
 #include "fifo.h"
-//#include "n4debug.h"
+
 static uint16_t FifoNext( Fifo_t *fifo, uint16_t index )
 {
     return ( index + 1 ) % fifo->Size;
@@ -59,7 +59,7 @@ bool IsFifoFull( Fifo_t *fifo )
 
 uint16_t FifoCount(Fifo_t *fifo)
 {
-	 int r;
+	 uint16_t r;
      r= fifo->End - fifo->Begin;
 	 if ( r < 0) r+= fifo->Size;
 	return r;

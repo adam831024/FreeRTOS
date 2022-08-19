@@ -1,20 +1,23 @@
 /******************************************************************************
-Copyright (C) nFore Technology Co.,Ltd. 2005-2021
-
-FILE NAME
-    utility.c (*Must)
-
-DESCRIPTION
-    module responsible for tts selection
-
+ * Copyright (C)
+ *
+ * NAME:
+ *		utility.c
+ * DESCRIPTION:
+ *
 *******************************************************************************/
-
 /******************************************************************************
  * Includes
  *******************************************************************************/
+/*Standard include*/
 #include <stdint.h>
+#include "Nano100Series.h" 
+
+/*Free-RTOS include*/
 #include "FreeRTOSConfig.h"
-#include "Nano100Series.h"
+
+/*Application include*/
+
 /******************************************************************************
  * Module Preprocessor Constants
  *******************************************************************************/
@@ -41,28 +44,24 @@ static uint16_t fac_ms = 0;
  * Function Definitions
  *******************************************************************************/
 /******************************************************************************
-NAME
-    delay_init
-DESCRIPTION
-    Play a numeric string using the TTS plugin
-RETURNS
-*******************************************************************************/
+ * @brief     syste tick delay init
+ * @return                              void
+ *******************************************************************************/
 void delay_init(void)
 {
     fac_us = SystemCoreClock / 4000000; // TODO: not sure
     fac_ms = (uint16_t)fac_us * 1000;
 }
+
 /******************************************************************************
-NAME
-    delay_us
-DESCRIPTION
-    Play a numeric string using the TTS plugin
-RETURNS
-*******************************************************************************/
-void delay_us(uint16_t nus)
+ * @brief     system delay ns
+ * @param[in] us                		microseconds
+ * @return                              void
+ *******************************************************************************/
+void delay_us(uint16_t us)
 {
     uint32_t temp;
-    SysTick->LOAD = (uint32_t)nus * fac_us;
+    SysTick->LOAD = (uint32_t)us * fac_us;
     SysTick->VAL = 0x00;
     SysTick->CTRL = 0x01;
     do
@@ -72,17 +71,16 @@ void delay_us(uint16_t nus)
     SysTick->CTRL = 0x00;
     SysTick->VAL = 0x00;
 }
+
 /******************************************************************************
-NAME
-    delay_ms
-DESCRIPTION
-    Play a numeric string using the TTS plugin
-RETURNS
-*******************************************************************************/
-void delay_ms(uint16_t nms)
+ * @brief     system delay ms
+ * @param[in] ms                		milliseconds
+ * @return                              void
+ *******************************************************************************/
+void delay_ms(uint16_t ms)
 {
     uint32_t temp;
-    SysTick->LOAD = (uint32_t)nms * fac_ms;
+    SysTick->LOAD = (uint32_t)ms * fac_ms;
     SysTick->VAL = 0x00;
     SysTick->CTRL = 0x01;
     do
