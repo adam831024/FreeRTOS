@@ -362,7 +362,7 @@ int main(int argc, char const *argv[])
 	{ 
 		/*semaphore fail create*/ 
 	} 
-	delayInit();
+	delay_init();
 	taskCreate();
 	timerInit();
 	/*fifo init*/

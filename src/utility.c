@@ -47,7 +47,7 @@ static uint16_t fac_ms = 0;
  * @brief     syste tick delay init
  * @return                              void
  *******************************************************************************/
-void delayInit(void)
+void delay_init(void)
 {
     /*systick HCLK，interrupt interval 1ms*/
     SysTick_Config(SystemCoreClock / 1000);

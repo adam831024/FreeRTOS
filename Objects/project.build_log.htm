@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: £gVision V5.16.0.0
 Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: aaa aaa, aa, LIC=----
+License Information: aa aa, aa, LIC=----
  
 Tool Versions:
 Toolchain:       MDK-Lite  Version: 5.16.0.0
@@ -17,11 +17,11 @@ Library Manager: ArmAr.exe V5.06 (build 20)
 Hex Converter:   FromElf.exe V5.06 (build 20)
 CPU DLL:         SARMCM3.DLL V5.16.0.0
 Dialog DLL:      DARMCM1.DLL V1.12.0.0
-Target DLL:      Segger\JL2CM3.dll V2.99.15.2
+Target DLL:      UL2CM3.DLL V1.155.12.0
 Dialog DLL:      TARMCM1.DLL V1.9.0.0
  
 <h2>Project:</h2>
-C:\Users\vincent\Desktop\FreeRTOS\project.uvprojx
+C:\Users\vince\Desktop\FreeRTOS\project.uvprojx
 Project File Date:  08/19/2022
 
 <h2>Output:</h2>
@@ -32,32 +32,30 @@ src\fifo.c(64): warning:  #186-D: pointless comparison of unsigned integer with 
   	 if ( r < 0) r+= fifo->Size;
 src\fifo.c: 1 warning, 0 errors
 compiling lcd.c...
-compiling rgb.c...
 compiling utility.c...
 compiling main.c...
-src\main.c(365): warning:  #223-D: function "delayInit" declared implicitly
-  	delayInit();
 src\main.c(103): warning:  #177-D: function "uartParser" was declared but never referenced
   static parserState_t uartParser(uint8_t *data, uint16_t dataLength)
-src\main.c: 2 warnings, 0 errors
+src\main.c: 1 warning, 0 errors
 compiling uart1.c...
+compiling rgb.c...
 compiling croutine.c...
 compiling list.c...
 compiling event_groups.c...
-compiling timers.c...
 compiling queue.c...
+compiling timers.c...
 compiling tasks.c...
-compiling heap_4.c...
 compiling stream_buffer.c...
+compiling heap_4.c...
 compiling port.c...
 compiling sys.c...
+compiling uart.c...
 assembling startup_Nano100Series.s...
 compiling retarget.c...
-compiling uart.c...
 compiling system_Nano100Series.c...
 linking...
 Program Size: Code=10722 RO-data=266 RW-data=156 ZI-data=11076  
-".\Objects\project.axf" - 0 Error(s), 3 Warning(s).
+".\Objects\project.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -76,7 +74,7 @@ Package Vendor: Nuvoton
    * Component: SYS Version: 3.01.000
 
 <h2>Collection of Component include folders:</h2>
-  C:\Users\vincent\Desktop\FreeRTOS\RTE
+  C:\Users\vince\Desktop\FreeRTOS\RTE
   C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include
   C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver
   C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include
@@ -86,10 +84,10 @@ Package Vendor: Nuvoton
    * Component: ARM::CMSIS:CORE:4.1.0
 
    * Component: Nuvoton::Device:Startup:3.01.000
-      Source file:   Device\NANO100BN\Source\system_Nano100Series.c
-      Source file:   Device\NANO100BN\Source\ARM\startup_Nano100Series.s
       Include file:  Device\NANO100BN\Include\Nano100Series.h
       Source file:   Device\NANO100BN\Driver\retarget.c
+      Source file:   Device\NANO100BN\Source\system_Nano100Series.c
+      Source file:   Device\NANO100BN\Source\ARM\startup_Nano100Series.s
 
    * Component: Nuvoton::Device:Driver:UART:3.01.000
       Include file:  Device\NANO100BN\Driver\uart.h
@@ -98,7 +96,7 @@ Package Vendor: Nuvoton
    * Component: Nuvoton::Device:Driver:SYS:3.01.000
       Include file:  Device\NANO100BN\Driver\sys.h
       Source file:   Device\NANO100BN\Driver\sys.c
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:07
 </pre>
 </body>
 </html>

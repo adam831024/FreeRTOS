@@ -15,7 +15,7 @@
 ".\objects\heap_4.o"
 ".\objects\port.o"
 ".\objects\sys.o"
-".\objects\uart_1.o"
+".\objects\uart.o"
 ".\objects\retarget.o"
 ".\objects\startup_nano100series.o"
 ".\objects\system_nano100series.o"
