@@ -49,6 +49,9 @@ Section Cross References
     utility.o(i.delay_init) refers to utility.o(i.NVIC_SetPriority) for NVIC_SetPriority
     utility.o(i.delay_init) refers to system_nano100series.o(.data) for SystemCoreClock
     utility.o(i.delay_init) refers to utility.o(.data) for fac_us
+    utility.o(i.osFree) refers to heap_4.o(i.vPortFree) for vPortFree
+    utility.o(i.osMalloc) refers to heap_4.o(i.pvPortMalloc) for pvPortMalloc
+    utility.o(i.osMalloc) refers to rt_memclr.o(.text) for __aeabi_memclr
     fifo.o(i.FifoNext) refers to aeabi_sdiv.o(.text) for __aeabi_idivmod
     fifo.o(i.FifoPop) refers to fifo.o(i.FifoNext) for FifoNext
     fifo.o(i.FifoPrePop) refers to fifo.o(i.FifoNext) for FifoNext
@@ -725,6 +728,8 @@ Removing Unused input sections from the image.
     Removing utility.o(.revsh_text), (4 bytes).
     Removing utility.o(i.delayMs), (64 bytes).
     Removing utility.o(i.delayUs), (64 bytes).
+    Removing utility.o(i.osFree), (16 bytes).
+    Removing utility.o(i.osMalloc), (24 bytes).
     Removing fifo.o(i.FifoCount), (22 bytes).
     Removing fifo.o(i.FifoNext), (18 bytes).
     Removing fifo.o(i.FifoPop), (30 bytes).
@@ -879,7 +884,7 @@ Removing Unused input sections from the image.
     Removing system_nano100series.o(i.SysGet_PLLClockFreq), (128 bytes).
     Removing system_nano100series.o(i.SystemCoreClockUpdate), (44 bytes).
 
-160 unused section(s) (total 11122 bytes) removed from the image.
+162 unused section(s) (total 11162 bytes) removed from the image.
 
 ==============================================================================
 
@@ -1524,185 +1529,185 @@ Memory Map of the image
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00000000   0x000000c0   Data   RO         1795    RESET               startup_nano100series.o
-    0x000000c0   0x00000008   Code   RO         1905  * !!!main             c_p.l(__main.o)
-    0x000000c8   0x0000003c   Code   RO         2081    !!!scatter          c_p.l(__scatter.o)
-    0x00000104   0x0000001a   Code   RO         2083    !!handler_copy      c_p.l(__scatter_copy.o)
+    0x00000000   0x000000c0   Data   RO         1807    RESET               startup_nano100series.o
+    0x000000c0   0x00000008   Code   RO         1917  * !!!main             c_p.l(__main.o)
+    0x000000c8   0x0000003c   Code   RO         2093    !!!scatter          c_p.l(__scatter.o)
+    0x00000104   0x0000001a   Code   RO         2095    !!handler_copy      c_p.l(__scatter_copy.o)
     0x0000011e   0x00000002   PAD
-    0x00000120   0x0000001c   Code   RO         2085    !!handler_zi        c_p.l(__scatter_zi.o)
-    0x0000013c   0x00000002   Code   RO         1888    .ARM.Collect$$_printf_percent$$00000000  c_p.l(_printf_percent.o)
-    0x0000013e   0x0000000a   Code   RO         1887    .ARM.Collect$$_printf_percent$$0000000C  c_p.l(_printf_x.o)
-    0x00000148   0x00000004   Code   RO         1916    .ARM.Collect$$_printf_percent$$00000017  c_p.l(_printf_percent_end.o)
-    0x0000014c   0x00000002   Code   RO         1952    .ARM.Collect$$libinit$$00000000  c_p.l(libinit.o)
-    0x0000014e   0x00000000   Code   RO         1966    .ARM.Collect$$libinit$$00000002  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         1968    .ARM.Collect$$libinit$$00000004  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         1971    .ARM.Collect$$libinit$$0000000A  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         1973    .ARM.Collect$$libinit$$0000000C  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         1975    .ARM.Collect$$libinit$$0000000E  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         1978    .ARM.Collect$$libinit$$00000011  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         1980    .ARM.Collect$$libinit$$00000013  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         1982    .ARM.Collect$$libinit$$00000015  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         1984    .ARM.Collect$$libinit$$00000017  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         1986    .ARM.Collect$$libinit$$00000019  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         1988    .ARM.Collect$$libinit$$0000001B  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         1990    .ARM.Collect$$libinit$$0000001D  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         1992    .ARM.Collect$$libinit$$0000001F  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         1994    .ARM.Collect$$libinit$$00000021  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         1996    .ARM.Collect$$libinit$$00000023  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         1998    .ARM.Collect$$libinit$$00000025  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         2002    .ARM.Collect$$libinit$$0000002C  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         2004    .ARM.Collect$$libinit$$0000002E  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         2006    .ARM.Collect$$libinit$$00000030  c_p.l(libinit2.o)
-    0x0000014e   0x00000000   Code   RO         2008    .ARM.Collect$$libinit$$00000032  c_p.l(libinit2.o)
-    0x0000014e   0x00000002   Code   RO         2009    .ARM.Collect$$libinit$$00000033  c_p.l(libinit2.o)
-    0x00000150   0x00000002   Code   RO         2038    .ARM.Collect$$libshutdown$$00000000  c_p.l(libshutdown.o)
-    0x00000152   0x00000000   Code   RO         2064    .ARM.Collect$$libshutdown$$00000002  c_p.l(libshutdown2.o)
-    0x00000152   0x00000000   Code   RO         2066    .ARM.Collect$$libshutdown$$00000004  c_p.l(libshutdown2.o)
-    0x00000152   0x00000000   Code   RO         2069    .ARM.Collect$$libshutdown$$00000007  c_p.l(libshutdown2.o)
-    0x00000152   0x00000000   Code   RO         2072    .ARM.Collect$$libshutdown$$0000000A  c_p.l(libshutdown2.o)
-    0x00000152   0x00000000   Code   RO         2074    .ARM.Collect$$libshutdown$$0000000C  c_p.l(libshutdown2.o)
-    0x00000152   0x00000000   Code   RO         2077    .ARM.Collect$$libshutdown$$0000000F  c_p.l(libshutdown2.o)
-    0x00000152   0x00000002   Code   RO         2078    .ARM.Collect$$libshutdown$$00000010  c_p.l(libshutdown2.o)
-    0x00000154   0x00000000   Code   RO         1907    .ARM.Collect$$rtentry$$00000000  c_p.l(__rtentry.o)
-    0x00000154   0x00000000   Code   RO         1918    .ARM.Collect$$rtentry$$00000002  c_p.l(__rtentry2.o)
-    0x00000154   0x00000006   Code   RO         1930    .ARM.Collect$$rtentry$$00000004  c_p.l(__rtentry4.o)
-    0x0000015a   0x00000000   Code   RO         1920    .ARM.Collect$$rtentry$$00000009  c_p.l(__rtentry2.o)
-    0x0000015a   0x00000004   Code   RO         1921    .ARM.Collect$$rtentry$$0000000A  c_p.l(__rtentry2.o)
-    0x0000015e   0x00000000   Code   RO         1923    .ARM.Collect$$rtentry$$0000000C  c_p.l(__rtentry2.o)
-    0x0000015e   0x00000008   Code   RO         1924    .ARM.Collect$$rtentry$$0000000D  c_p.l(__rtentry2.o)
-    0x00000166   0x00000002   Code   RO         1957    .ARM.Collect$$rtexit$$00000000  c_p.l(rtexit.o)
-    0x00000168   0x00000000   Code   RO         2013    .ARM.Collect$$rtexit$$00000002  c_p.l(rtexit2.o)
-    0x00000168   0x00000004   Code   RO         2014    .ARM.Collect$$rtexit$$00000003  c_p.l(rtexit2.o)
-    0x0000016c   0x00000006   Code   RO         2015    .ARM.Collect$$rtexit$$00000004  c_p.l(rtexit2.o)
+    0x00000120   0x0000001c   Code   RO         2097    !!handler_zi        c_p.l(__scatter_zi.o)
+    0x0000013c   0x00000002   Code   RO         1900    .ARM.Collect$$_printf_percent$$00000000  c_p.l(_printf_percent.o)
+    0x0000013e   0x0000000a   Code   RO         1899    .ARM.Collect$$_printf_percent$$0000000C  c_p.l(_printf_x.o)
+    0x00000148   0x00000004   Code   RO         1928    .ARM.Collect$$_printf_percent$$00000017  c_p.l(_printf_percent_end.o)
+    0x0000014c   0x00000002   Code   RO         1964    .ARM.Collect$$libinit$$00000000  c_p.l(libinit.o)
+    0x0000014e   0x00000000   Code   RO         1978    .ARM.Collect$$libinit$$00000002  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         1980    .ARM.Collect$$libinit$$00000004  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         1983    .ARM.Collect$$libinit$$0000000A  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         1985    .ARM.Collect$$libinit$$0000000C  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         1987    .ARM.Collect$$libinit$$0000000E  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         1990    .ARM.Collect$$libinit$$00000011  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         1992    .ARM.Collect$$libinit$$00000013  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         1994    .ARM.Collect$$libinit$$00000015  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         1996    .ARM.Collect$$libinit$$00000017  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         1998    .ARM.Collect$$libinit$$00000019  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         2000    .ARM.Collect$$libinit$$0000001B  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         2002    .ARM.Collect$$libinit$$0000001D  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         2004    .ARM.Collect$$libinit$$0000001F  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         2006    .ARM.Collect$$libinit$$00000021  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         2008    .ARM.Collect$$libinit$$00000023  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         2010    .ARM.Collect$$libinit$$00000025  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         2014    .ARM.Collect$$libinit$$0000002C  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         2016    .ARM.Collect$$libinit$$0000002E  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         2018    .ARM.Collect$$libinit$$00000030  c_p.l(libinit2.o)
+    0x0000014e   0x00000000   Code   RO         2020    .ARM.Collect$$libinit$$00000032  c_p.l(libinit2.o)
+    0x0000014e   0x00000002   Code   RO         2021    .ARM.Collect$$libinit$$00000033  c_p.l(libinit2.o)
+    0x00000150   0x00000002   Code   RO         2050    .ARM.Collect$$libshutdown$$00000000  c_p.l(libshutdown.o)
+    0x00000152   0x00000000   Code   RO         2076    .ARM.Collect$$libshutdown$$00000002  c_p.l(libshutdown2.o)
+    0x00000152   0x00000000   Code   RO         2078    .ARM.Collect$$libshutdown$$00000004  c_p.l(libshutdown2.o)
+    0x00000152   0x00000000   Code   RO         2081    .ARM.Collect$$libshutdown$$00000007  c_p.l(libshutdown2.o)
+    0x00000152   0x00000000   Code   RO         2084    .ARM.Collect$$libshutdown$$0000000A  c_p.l(libshutdown2.o)
+    0x00000152   0x00000000   Code   RO         2086    .ARM.Collect$$libshutdown$$0000000C  c_p.l(libshutdown2.o)
+    0x00000152   0x00000000   Code   RO         2089    .ARM.Collect$$libshutdown$$0000000F  c_p.l(libshutdown2.o)
+    0x00000152   0x00000002   Code   RO         2090    .ARM.Collect$$libshutdown$$00000010  c_p.l(libshutdown2.o)
+    0x00000154   0x00000000   Code   RO         1919    .ARM.Collect$$rtentry$$00000000  c_p.l(__rtentry.o)
+    0x00000154   0x00000000   Code   RO         1930    .ARM.Collect$$rtentry$$00000002  c_p.l(__rtentry2.o)
+    0x00000154   0x00000006   Code   RO         1942    .ARM.Collect$$rtentry$$00000004  c_p.l(__rtentry4.o)
+    0x0000015a   0x00000000   Code   RO         1932    .ARM.Collect$$rtentry$$00000009  c_p.l(__rtentry2.o)
+    0x0000015a   0x00000004   Code   RO         1933    .ARM.Collect$$rtentry$$0000000A  c_p.l(__rtentry2.o)
+    0x0000015e   0x00000000   Code   RO         1935    .ARM.Collect$$rtentry$$0000000C  c_p.l(__rtentry2.o)
+    0x0000015e   0x00000008   Code   RO         1936    .ARM.Collect$$rtentry$$0000000D  c_p.l(__rtentry2.o)
+    0x00000166   0x00000002   Code   RO         1969    .ARM.Collect$$rtexit$$00000000  c_p.l(rtexit.o)
+    0x00000168   0x00000000   Code   RO         2025    .ARM.Collect$$rtexit$$00000002  c_p.l(rtexit2.o)
+    0x00000168   0x00000004   Code   RO         2026    .ARM.Collect$$rtexit$$00000003  c_p.l(rtexit2.o)
+    0x0000016c   0x00000006   Code   RO         2027    .ARM.Collect$$rtexit$$00000004  c_p.l(rtexit2.o)
     0x00000172   0x00000002   PAD
-    0x00000174   0x00000078   Code   RO         1443    .emb_text           port.o
-    0x000001ec   0x0000001c   Code   RO         1704    .emb_text           retarget.o
-    0x00000208   0x00000038   Code   RO         1889    .emb_text           c_p.l(rt_memcpy.o)
-    0x00000240   0x00000060   Code   RO         1796  * .text               startup_nano100series.o
-    0x000002a0   0x0000001c   Code   RO         1842    .text               c_p.l(noretval__2printf.o)
-    0x000002bc   0x00000058   Code   RO         1849    .text               c_p.l(_printf_hex_int.o)
-    0x00000314   0x0000010e   Code   RO         1875    .text               c_p.l(__printf_wp.o)
-    0x00000422   0x00000082   Code   RO         1890    .text               c_p.l(rt_memcpy.o)
-    0x000004a4   0x00000012   Code   RO         1895    .text               c_p.l(aeabi_memset.o)
-    0x000004b6   0x00000040   Code   RO         1897    .text               c_p.l(rt_memclr.o)
-    0x000004f6   0x0000015a   Code   RO         1899    .text               c_p.l(aeabi_sdiv.o)
-    0x00000650   0x00000006   Code   RO         1903    .text               c_p.l(heapauxi.o)
-    0x00000656   0x000000b0   Code   RO         1912    .text               c_p.l(_printf_intcommon.o)
+    0x00000174   0x00000078   Code   RO         1455    .emb_text           port.o
+    0x000001ec   0x0000001c   Code   RO         1716    .emb_text           retarget.o
+    0x00000208   0x00000038   Code   RO         1901    .emb_text           c_p.l(rt_memcpy.o)
+    0x00000240   0x00000060   Code   RO         1808  * .text               startup_nano100series.o
+    0x000002a0   0x0000001c   Code   RO         1854    .text               c_p.l(noretval__2printf.o)
+    0x000002bc   0x00000058   Code   RO         1861    .text               c_p.l(_printf_hex_int.o)
+    0x00000314   0x0000010e   Code   RO         1887    .text               c_p.l(__printf_wp.o)
+    0x00000422   0x00000082   Code   RO         1902    .text               c_p.l(rt_memcpy.o)
+    0x000004a4   0x00000012   Code   RO         1907    .text               c_p.l(aeabi_memset.o)
+    0x000004b6   0x00000040   Code   RO         1909    .text               c_p.l(rt_memclr.o)
+    0x000004f6   0x0000015a   Code   RO         1911    .text               c_p.l(aeabi_sdiv.o)
+    0x00000650   0x00000006   Code   RO         1915    .text               c_p.l(heapauxi.o)
+    0x00000656   0x000000b0   Code   RO         1924    .text               c_p.l(_printf_intcommon.o)
     0x00000706   0x00000002   PAD
-    0x00000708   0x00000028   Code   RO         1914    .text               c_p.l(_printf_char_file.o)
-    0x00000730   0x00000030   Code   RO         1934    .text               c_p.l(_printf_char_common.o)
-    0x00000760   0x0000003e   Code   RO         1936    .text               c_p.l(sys_stackheap_outer.o)
-    0x0000079e   0x00000010   Code   RO         1941    .text               c_p.l(exit.o)
+    0x00000708   0x00000028   Code   RO         1926    .text               c_p.l(_printf_char_file.o)
+    0x00000730   0x00000030   Code   RO         1946    .text               c_p.l(_printf_char_common.o)
+    0x00000760   0x0000003e   Code   RO         1948    .text               c_p.l(sys_stackheap_outer.o)
+    0x0000079e   0x00000010   Code   RO         1953    .text               c_p.l(exit.o)
     0x000007ae   0x00000002   PAD
-    0x000007b0   0x00000008   Code   RO         1953    .text               c_p.l(libspace.o)
-    0x000007b8   0x0000000c   Code   RO         2010    .text               c_p.l(sys_exit.o)
-    0x000007c4   0x00000002   Code   RO         2027    .text               c_p.l(use_no_semi.o)
-    0x000007c6   0x00000000   Code   RO         2029    .text               c_p.l(indicate_semi.o)
-    0x000007c6   0x00000008   Code   RO          268    i.FifoFlush         fifo.o
-    0x000007ce   0x0000000c   Code   RO          269    i.FifoInit          fifo.o
+    0x000007b0   0x00000008   Code   RO         1965    .text               c_p.l(libspace.o)
+    0x000007b8   0x0000000c   Code   RO         2022    .text               c_p.l(sys_exit.o)
+    0x000007c4   0x00000002   Code   RO         2039    .text               c_p.l(use_no_semi.o)
+    0x000007c6   0x00000000   Code   RO         2041    .text               c_p.l(indicate_semi.o)
+    0x000007c6   0x00000008   Code   RO          280    i.FifoFlush         fifo.o
+    0x000007ce   0x0000000c   Code   RO          281    i.FifoInit          fifo.o
     0x000007da   0x00000002   PAD
-    0x000007dc   0x0000002c   Code   RO         1706    i.Hard_Fault_Handler  retarget.o
-    0x00000808   0x00000012   Code   RO          274    i.IsFifoEmpty       fifo.o
+    0x000007dc   0x0000002c   Code   RO         1718    i.Hard_Fault_Handler  retarget.o
+    0x00000808   0x00000012   Code   RO          286    i.IsFifoEmpty       fifo.o
     0x0000081a   0x00000002   PAD
     0x0000081c   0x00000078   Code   RO          205    i.NVIC_SetPriority  utility.o
-    0x00000894   0x00000002   Code   RO         1444    i.SVC_Handler       port.o
-    0x00000896   0x0000000c   Code   RO         1708    i.SendChar          retarget.o
+    0x00000894   0x00000002   Code   RO         1456    i.SVC_Handler       port.o
+    0x00000896   0x0000000c   Code   RO         1720    i.SendChar          retarget.o
     0x000008a2   0x00000002   PAD
-    0x000008a4   0x00000034   Code   RO         1709    i.SendChar_ToUART   retarget.o
-    0x000008d8   0x00000024   Code   RO         1445    i.SysTick_Handler   port.o
-    0x000008fc   0x0000001c   Code   RO         1067    i.__ARM_common_switch8  tasks.o
-    0x00000918   0x0000000e   Code   RO         1877    i._is_digit         c_p.l(__printf_wp.o)
+    0x000008a4   0x00000034   Code   RO         1721    i.SendChar_ToUART   retarget.o
+    0x000008d8   0x00000024   Code   RO         1457    i.SysTick_Handler   port.o
+    0x000008fc   0x0000001c   Code   RO         1079    i.__ARM_common_switch8  tasks.o
+    0x00000918   0x0000000e   Code   RO         1889    i._is_digit         c_p.l(__printf_wp.o)
     0x00000926   0x00000002   PAD
     0x00000928   0x0000006c   Code   RO          208    i.delay_init        utility.o
-    0x00000994   0x00000008   Code   RO         1711    i.ferror            retarget.o
-    0x0000099c   0x00000010   Code   RO         1713    i.fputc             retarget.o
+    0x00000994   0x00000008   Code   RO         1723    i.ferror            retarget.o
+    0x0000099c   0x00000010   Code   RO         1725    i.fputc             retarget.o
     0x000009ac   0x00000048   Code   RO            3    i.main              main.o
     0x000009f4   0x00000058   Code   RO            4    i.mainTask          main.o
     0x00000a4c   0x0000001c   Code   RO            5    i.parserTimerCb     main.o
-    0x00000a68   0x000000a4   Code   RO          713    i.prvAddCurrentTaskToDelayedList  tasks.o
-    0x00000b0c   0x000000d8   Code   RO          714    i.prvAddNewTaskToReadyList  tasks.o
-    0x00000be4   0x00000068   Code   RO         1079    i.prvCheckForValidListAndQueue  timers.o
-    0x00000c4c   0x00000048   Code   RO          715    i.prvCheckTasksWaitingTermination  tasks.o
-    0x00000c94   0x0000002c   Code   RO          495    i.prvCopyDataFromQueue  queue.o
-    0x00000cc0   0x00000080   Code   RO          496    i.prvCopyDataToQueue  queue.o
-    0x00000d40   0x00000012   Code   RO          716    i.prvDeleteTCB      tasks.o
-    0x00000d52   0x00000016   Code   RO          497    i.prvGetDisinheritPriorityAfterTimeout  queue.o
-    0x00000d68   0x0000002c   Code   RO         1080    i.prvGetNextExpireTime  timers.o
-    0x00000d94   0x00000080   Code   RO         1388    i.prvHeapInit       heap_4.o
-    0x00000e14   0x00000018   Code   RO          717    i.prvIdleTask       tasks.o
-    0x00000e2c   0x0000002c   Code   RO          499    i.prvInitialiseNewQueue  queue.o
-    0x00000e58   0x000000ce   Code   RO          718    i.prvInitialiseNewTask  tasks.o
-    0x00000f26   0x0000004a   Code   RO         1081    i.prvInitialiseNewTimer  timers.o
-    0x00000f70   0x00000064   Code   RO          719    i.prvInitialiseTaskLists  tasks.o
-    0x00000fd4   0x00000068   Code   RO         1389    i.prvInsertBlockIntoFreeList  heap_4.o
-    0x0000103c   0x00000054   Code   RO         1082    i.prvInsertTimerInActiveList  timers.o
-    0x00001090   0x0000001c   Code   RO          500    i.prvIsQueueEmpty   queue.o
-    0x000010ac   0x0000001e   Code   RO          501    i.prvIsQueueFull    queue.o
+    0x00000a68   0x000000a4   Code   RO          725    i.prvAddCurrentTaskToDelayedList  tasks.o
+    0x00000b0c   0x000000d8   Code   RO          726    i.prvAddNewTaskToReadyList  tasks.o
+    0x00000be4   0x00000068   Code   RO         1091    i.prvCheckForValidListAndQueue  timers.o
+    0x00000c4c   0x00000048   Code   RO          727    i.prvCheckTasksWaitingTermination  tasks.o
+    0x00000c94   0x0000002c   Code   RO          507    i.prvCopyDataFromQueue  queue.o
+    0x00000cc0   0x00000080   Code   RO          508    i.prvCopyDataToQueue  queue.o
+    0x00000d40   0x00000012   Code   RO          728    i.prvDeleteTCB      tasks.o
+    0x00000d52   0x00000016   Code   RO          509    i.prvGetDisinheritPriorityAfterTimeout  queue.o
+    0x00000d68   0x0000002c   Code   RO         1092    i.prvGetNextExpireTime  timers.o
+    0x00000d94   0x00000080   Code   RO         1400    i.prvHeapInit       heap_4.o
+    0x00000e14   0x00000018   Code   RO          729    i.prvIdleTask       tasks.o
+    0x00000e2c   0x0000002c   Code   RO          511    i.prvInitialiseNewQueue  queue.o
+    0x00000e58   0x000000ce   Code   RO          730    i.prvInitialiseNewTask  tasks.o
+    0x00000f26   0x0000004a   Code   RO         1093    i.prvInitialiseNewTimer  timers.o
+    0x00000f70   0x00000064   Code   RO          731    i.prvInitialiseTaskLists  tasks.o
+    0x00000fd4   0x00000068   Code   RO         1401    i.prvInsertBlockIntoFreeList  heap_4.o
+    0x0000103c   0x00000054   Code   RO         1094    i.prvInsertTimerInActiveList  timers.o
+    0x00001090   0x0000001c   Code   RO          512    i.prvIsQueueEmpty   queue.o
+    0x000010ac   0x0000001e   Code   RO          513    i.prvIsQueueFull    queue.o
     0x000010ca   0x00000002   PAD
-    0x000010cc   0x00000044   Code   RO         1083    i.prvProcessExpiredTimer  timers.o
-    0x00001110   0x0000011c   Code   RO         1084    i.prvProcessReceivedCommands  timers.o
-    0x0000122c   0x0000006c   Code   RO         1085    i.prvProcessTimerOrBlockTask  timers.o
-    0x00001298   0x00000028   Code   RO         1086    i.prvReloadTimer    timers.o
-    0x000012c0   0x00000034   Code   RO          721    i.prvResetNextTaskUnblockTime  tasks.o
-    0x000012f4   0x0000002c   Code   RO         1087    i.prvSampleTimeNow  timers.o
-    0x00001320   0x00000044   Code   RO         1088    i.prvSwitchTimerLists  timers.o
-    0x00001364   0x00000024   Code   RO         1446    i.prvTaskExitError  port.o
-    0x00001388   0x0000001a   Code   RO         1089    i.prvTimerTask      timers.o
-    0x000013a2   0x0000008e   Code   RO          502    i.prvUnlockQueue    queue.o
-    0x00001430   0x00000144   Code   RO         1390    i.pvPortMalloc      heap_4.o
-    0x00001574   0x00000020   Code   RO          724    i.pvTaskIncrementMutexHeldCount  tasks.o
-    0x00001594   0x00000020   Code   RO         1447    i.pxPortInitialiseStack  port.o
-    0x000015b4   0x000000a8   Code   RO         1715    i.stackDump         retarget.o
+    0x000010cc   0x00000044   Code   RO         1095    i.prvProcessExpiredTimer  timers.o
+    0x00001110   0x0000011c   Code   RO         1096    i.prvProcessReceivedCommands  timers.o
+    0x0000122c   0x0000006c   Code   RO         1097    i.prvProcessTimerOrBlockTask  timers.o
+    0x00001298   0x00000028   Code   RO         1098    i.prvReloadTimer    timers.o
+    0x000012c0   0x00000034   Code   RO          733    i.prvResetNextTaskUnblockTime  tasks.o
+    0x000012f4   0x0000002c   Code   RO         1099    i.prvSampleTimeNow  timers.o
+    0x00001320   0x00000044   Code   RO         1100    i.prvSwitchTimerLists  timers.o
+    0x00001364   0x00000024   Code   RO         1458    i.prvTaskExitError  port.o
+    0x00001388   0x0000001a   Code   RO         1101    i.prvTimerTask      timers.o
+    0x000013a2   0x0000008e   Code   RO          514    i.prvUnlockQueue    queue.o
+    0x00001430   0x00000144   Code   RO         1402    i.pvPortMalloc      heap_4.o
+    0x00001574   0x00000020   Code   RO          736    i.pvTaskIncrementMutexHeldCount  tasks.o
+    0x00001594   0x00000020   Code   RO         1459    i.pxPortInitialiseStack  port.o
+    0x000015b4   0x000000a8   Code   RO         1727    i.stackDump         retarget.o
     0x0000165c   0x00000028   Code   RO            6    i.stateCheckTimerCb  main.o
     0x00001684   0x00000050   Code   RO            7    i.taskCreate        main.o
     0x000016d4   0x00000078   Code   RO            8    i.timerInit         main.o
     0x0000174c   0x0000005c   Code   RO           10    i.uartTask          main.o
-    0x000017a8   0x00000028   Code   RO          458    i.uxListRemove      list.o
-    0x000017d0   0x0000001c   Code   RO          505    i.uxQueueMessagesWaiting  queue.o
-    0x000017ec   0x0000001a   Code   RO          459    i.vListInitialise   list.o
-    0x00001806   0x00000006   Code   RO          460    i.vListInitialiseItem  list.o
-    0x0000180c   0x00000036   Code   RO          461    i.vListInsert       list.o
+    0x000017a8   0x00000028   Code   RO          470    i.uxListRemove      list.o
+    0x000017d0   0x0000001c   Code   RO          517    i.uxQueueMessagesWaiting  queue.o
+    0x000017ec   0x0000001a   Code   RO          471    i.vListInitialise   list.o
+    0x00001806   0x00000006   Code   RO          472    i.vListInitialiseItem  list.o
+    0x0000180c   0x00000036   Code   RO          473    i.vListInsert       list.o
     0x00001842   0x00000002   PAD
-    0x00001844   0x0000001c   Code   RO         1449    i.vPortEnterCritical  port.o
-    0x00001860   0x00000028   Code   RO         1450    i.vPortExitCritical  port.o
-    0x00001888   0x00000090   Code   RO         1391    i.vPortFree         heap_4.o
-    0x00001918   0x0000002c   Code   RO         1451    i.vPortSetupTimerInterrupt  port.o
-    0x00001944   0x00000018   Code   RO         1452    i.vPortYield        port.o
-    0x0000195c   0x00000054   Code   RO          508    i.vQueueAddToRegistry  queue.o
-    0x000019b0   0x0000004c   Code   RO          512    i.vQueueWaitForMessageRestricted  queue.o
-    0x000019fc   0x00000018   Code   RO          738    i.vTaskInternalSetTimeOutState  tasks.o
-    0x00001a14   0x0000000c   Code   RO          739    i.vTaskMissedYield  tasks.o
-    0x00001a20   0x0000002c   Code   RO          740    i.vTaskPlaceOnEventList  tasks.o
-    0x00001a4c   0x00000058   Code   RO          741    i.vTaskPlaceOnEventListRestricted  tasks.o
-    0x00001aa4   0x000000e0   Code   RO          743    i.vTaskPriorityDisinheritAfterTimeout  tasks.o
-    0x00001b84   0x00000080   Code   RO          749    i.vTaskStartScheduler  tasks.o
-    0x00001c04   0x00000010   Code   RO          751    i.vTaskSuspendAll   tasks.o
-    0x00001c14   0x00000080   Code   RO          752    i.vTaskSwitchContext  tasks.o
-    0x00001c94   0x00000038   Code   RO         1453    i.xPortStartScheduler  port.o
-    0x00001ccc   0x00000032   Code   RO          513    i.xQueueCreateCountingSemaphore  queue.o
-    0x00001cfe   0x00000062   Code   RO          515    i.xQueueGenericCreate  queue.o
-    0x00001d60   0x000000b6   Code   RO          516    i.xQueueGenericReset  queue.o
-    0x00001e16   0x0000015a   Code   RO          517    i.xQueueGenericSend  queue.o
-    0x00001f70   0x000000ca   Code   RO          518    i.xQueueGenericSendFromISR  queue.o
-    0x0000203a   0x00000138   Code   RO          525    i.xQueueReceive     queue.o
-    0x00002172   0x0000017e   Code   RO          527    i.xQueueSemaphoreTake  queue.o
-    0x000022f0   0x00000078   Code   RO          754    i.xTaskCheckForTimeOut  tasks.o
-    0x00002368   0x0000005c   Code   RO          755    i.xTaskCreate       tasks.o
-    0x000023c4   0x00000024   Code   RO          762    i.xTaskGetSchedulerState  tasks.o
-    0x000023e8   0x0000000c   Code   RO          763    i.xTaskGetTickCount  tasks.o
-    0x000023f4   0x000001a8   Code   RO          765    i.xTaskIncrementTick  tasks.o
-    0x0000259c   0x000000b4   Code   RO          766    i.xTaskPriorityDisinherit  tasks.o
-    0x00002650   0x000000d0   Code   RO          767    i.xTaskPriorityInherit  tasks.o
-    0x00002720   0x00000108   Code   RO          768    i.xTaskRemoveFromEventList  tasks.o
-    0x00002828   0x0000015c   Code   RO          769    i.xTaskResumeAll    tasks.o
-    0x00002984   0x00000032   Code   RO         1096    i.xTimerCreate      timers.o
+    0x00001844   0x0000001c   Code   RO         1461    i.vPortEnterCritical  port.o
+    0x00001860   0x00000028   Code   RO         1462    i.vPortExitCritical  port.o
+    0x00001888   0x00000090   Code   RO         1403    i.vPortFree         heap_4.o
+    0x00001918   0x0000002c   Code   RO         1463    i.vPortSetupTimerInterrupt  port.o
+    0x00001944   0x00000018   Code   RO         1464    i.vPortYield        port.o
+    0x0000195c   0x00000054   Code   RO          520    i.vQueueAddToRegistry  queue.o
+    0x000019b0   0x0000004c   Code   RO          524    i.vQueueWaitForMessageRestricted  queue.o
+    0x000019fc   0x00000018   Code   RO          750    i.vTaskInternalSetTimeOutState  tasks.o
+    0x00001a14   0x0000000c   Code   RO          751    i.vTaskMissedYield  tasks.o
+    0x00001a20   0x0000002c   Code   RO          752    i.vTaskPlaceOnEventList  tasks.o
+    0x00001a4c   0x00000058   Code   RO          753    i.vTaskPlaceOnEventListRestricted  tasks.o
+    0x00001aa4   0x000000e0   Code   RO          755    i.vTaskPriorityDisinheritAfterTimeout  tasks.o
+    0x00001b84   0x00000080   Code   RO          761    i.vTaskStartScheduler  tasks.o
+    0x00001c04   0x00000010   Code   RO          763    i.vTaskSuspendAll   tasks.o
+    0x00001c14   0x00000080   Code   RO          764    i.vTaskSwitchContext  tasks.o
+    0x00001c94   0x00000038   Code   RO         1465    i.xPortStartScheduler  port.o
+    0x00001ccc   0x00000032   Code   RO          525    i.xQueueCreateCountingSemaphore  queue.o
+    0x00001cfe   0x00000062   Code   RO          527    i.xQueueGenericCreate  queue.o
+    0x00001d60   0x000000b6   Code   RO          528    i.xQueueGenericReset  queue.o
+    0x00001e16   0x0000015a   Code   RO          529    i.xQueueGenericSend  queue.o
+    0x00001f70   0x000000ca   Code   RO          530    i.xQueueGenericSendFromISR  queue.o
+    0x0000203a   0x00000138   Code   RO          537    i.xQueueReceive     queue.o
+    0x00002172   0x0000017e   Code   RO          539    i.xQueueSemaphoreTake  queue.o
+    0x000022f0   0x00000078   Code   RO          766    i.xTaskCheckForTimeOut  tasks.o
+    0x00002368   0x0000005c   Code   RO          767    i.xTaskCreate       tasks.o
+    0x000023c4   0x00000024   Code   RO          774    i.xTaskGetSchedulerState  tasks.o
+    0x000023e8   0x0000000c   Code   RO          775    i.xTaskGetTickCount  tasks.o
+    0x000023f4   0x000001a8   Code   RO          777    i.xTaskIncrementTick  tasks.o
+    0x0000259c   0x000000b4   Code   RO          778    i.xTaskPriorityDisinherit  tasks.o
+    0x00002650   0x000000d0   Code   RO          779    i.xTaskPriorityInherit  tasks.o
+    0x00002720   0x00000108   Code   RO          780    i.xTaskRemoveFromEventList  tasks.o
+    0x00002828   0x0000015c   Code   RO          781    i.xTaskResumeAll    tasks.o
+    0x00002984   0x00000032   Code   RO         1108    i.xTimerCreate      timers.o
     0x000029b6   0x00000002   PAD
-    0x000029b8   0x00000048   Code   RO         1097    i.xTimerCreateTimerTask  timers.o
-    0x00002a00   0x00000074   Code   RO         1098    i.xTimerGenericCommand  timers.o
-    0x00002a74   0x0000002e   Code   RO         1102    i.xTimerIsTimerActive  timers.o
-    0x00002aa2   0x00000028   Data   RO         1850    .constdata          c_p.l(_printf_hex_int.o)
+    0x000029b8   0x00000048   Code   RO         1109    i.xTimerCreateTimerTask  timers.o
+    0x00002a00   0x00000074   Code   RO         1110    i.xTimerGenericCommand  timers.o
+    0x00002a74   0x0000002e   Code   RO         1114    i.xTimerIsTimerActive  timers.o
+    0x00002aa2   0x00000028   Data   RO         1862    .constdata          c_p.l(_printf_hex_int.o)
     0x00002aca   0x00000002   PAD
-    0x00002acc   0x00000020   Data   RO         2079    Region$$Table       anon$$obj.o
+    0x00002acc   0x00000020   Data   RO         2091    Region$$Table       anon$$obj.o
 
 
     Execution Region ER_RW (Base: 0x20000000, Size: 0x0000009c, Max: 0xffffffff, ABSOLUTE)
@@ -1710,13 +1715,13 @@ Memory Map of the image
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x20000000   0x00000010   Data   RW           12    .data               main.o
-    0x20000010   0x00000004   Data   RW          209    .data               utility.o
-    0x20000014   0x00000040   Data   RW          772    .data               tasks.o
-    0x20000054   0x00000014   Data   RW         1104    .data               timers.o
-    0x20000068   0x00000020   Data   RW         1397    .data               heap_4.o
-    0x20000088   0x00000004   Data   RW         1454    .data               port.o
-    0x2000008c   0x00000008   Data   RW         1716    .data               retarget.o
-    0x20000094   0x00000008   Data   RW         1805    .data               system_nano100series.o
+    0x20000010   0x00000004   Data   RW          211    .data               utility.o
+    0x20000014   0x00000040   Data   RW          784    .data               tasks.o
+    0x20000054   0x00000014   Data   RW         1116    .data               timers.o
+    0x20000068   0x00000020   Data   RW         1409    .data               heap_4.o
+    0x20000088   0x00000004   Data   RW         1466    .data               port.o
+    0x2000008c   0x00000008   Data   RW         1728    .data               retarget.o
+    0x20000094   0x00000008   Data   RW         1817    .data               system_nano100series.o
 
 
     Execution Region ER_ZI (Base: 0x2000009c, Size: 0x00002b44, Max: 0xffffffff, ABSOLUTE)
@@ -1724,14 +1729,14 @@ Memory Map of the image
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x2000009c   0x0000064c   Zero   RW           11    .bss                main.o
-    0x200006e8   0x00000040   Zero   RW          529    .bss                queue.o
-    0x20000728   0x000000c8   Zero   RW          771    .bss                tasks.o
-    0x200007f0   0x00000028   Zero   RW         1103    .bss                timers.o
-    0x20000818   0x00001964   Zero   RW         1396    .bss                heap_4.o
-    0x2000217c   0x00000060   Zero   RW         1954    .bss                c_p.l(libspace.o)
+    0x200006e8   0x00000040   Zero   RW          541    .bss                queue.o
+    0x20000728   0x000000c8   Zero   RW          783    .bss                tasks.o
+    0x200007f0   0x00000028   Zero   RW         1115    .bss                timers.o
+    0x20000818   0x00001964   Zero   RW         1408    .bss                heap_4.o
+    0x2000217c   0x00000060   Zero   RW         1966    .bss                c_p.l(libspace.o)
     0x200021dc   0x00000004   PAD
-    0x200021e0   0x00000500   Zero   RW         1794    HEAP                startup_nano100series.o
-    0x200026e0   0x00000500   Zero   RW         1793    STACK               startup_nano100series.o
+    0x200021e0   0x00000500   Zero   RW         1806    HEAP                startup_nano100series.o
+    0x200026e0   0x00000500   Zero   RW         1805    STACK               startup_nano100series.o
 
 
 ==============================================================================

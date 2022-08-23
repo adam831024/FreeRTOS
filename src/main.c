@@ -380,5 +380,4 @@ int main(int argc, char const *argv[])
  * 3. data pass through task
  * 4. LCD
  * 5. RGB
- * 6. malloc , vPortFree(), pvPortMalloc()
 */

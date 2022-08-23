@@ -11,6 +11,8 @@
  *******************************************************************************/
 /*Standard include*/
 #include <stdint.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "Nano100Series.h" 
 
 /*Free-RTOS include*/
@@ -91,5 +93,31 @@ void delayMs(uint16_t ms)
     } while ((temp & 0x01) && (!(temp & (1 << 16))));
     SysTick->CTRL = 0x00;
     SysTick->VAL = 0x00;
+}
+/******************************************************************************
+ * DESCRIPTION: malloc
+ * @param[in] size
+ *      malloc size
+ * RETURNS: pointer 
+*******************************************************************************/
+void *osMalloc(uint16_t size)
+{
+    void *memory = (void *)pvPortMalloc(size);
+    memset(memory, 0, size);
+    return memory;
+}
+/******************************************************************************
+ * DESCRIPTION: 
+ *      Free malloc
+ * @param[in] ptr
+ *      The pointer needed to be free
+ * RETURNS: void 
+*******************************************************************************/
+void osFree(void *ptr)
+{
+    if (ptr)
+    {
+        vPortFree(ptr);
+    }
 }
 /*************** END OF FUNCTIONS *********************************************/
