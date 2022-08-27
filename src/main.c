@@ -381,3 +381,15 @@ int main(int argc, char const *argv[])
  * 4. LCD
  * 5. RGB
 */
+
+#if 0
+//----- HCLK
+void init_HCLK(void)
+{
+  SYS_UnlockReg();
+  CLK_EnableXtalRC(CLK_PWRCTL_HXT_EN_Msk);
+  CLK_WaitClockReady( CLK_CLKSTATUS_HXT_STB_Msk);
+  CLK_SetHCLK(CLK_CLKSEL0_HCLK_S_HXT,CLK_HCLK_CLK_DIVIDER(1));
+  SYS_LockReg();
+}
+#endif

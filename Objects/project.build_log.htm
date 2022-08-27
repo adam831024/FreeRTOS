@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: £gVision V5.16.0.0
 Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: aa aa, aa, LIC=----
+License Information: 1 vincentadam, 1, LIC=----
  
 Tool Versions:
 Toolchain:       MDK-Lite  Version: 5.16.0.0
@@ -17,52 +17,56 @@ Library Manager: ArmAr.exe V5.06 (build 20)
 Hex Converter:   FromElf.exe V5.06 (build 20)
 CPU DLL:         SARMCM3.DLL V5.16.0.0
 Dialog DLL:      DARMCM1.DLL V1.12.0.0
-Target DLL:      UL2CM3.DLL V1.155.12.0
+Target DLL:      Segger\JL2CM3.dll V2.99.15.2
 Dialog DLL:      TARMCM1.DLL V1.9.0.0
  
 <h2>Project:</h2>
-C:\Users\vince\Desktop\FreeRTOS\project.uvprojx
-Project File Date:  08/23/2022
+C:\Users\vincentadam\Desktop\FreeRTOS\project.uvprojx
+Project File Date:  08/27/2022
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 (build 20)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild target 'Target 1'
+compiling lcd.c...
+compiling rgb.c...
 compiling fifo.c...
 src\fifo.c(64): warning:  #186-D: pointless comparison of unsigned integer with zero
   	 if ( r < 0) r+= fifo->Size;
 src\fifo.c: 1 warning, 0 errors
-compiling lcd.c...
+compiling croutine.c...
+compiling list.c...
+compiling event_groups.c...
+compiling uart1.c...
+src\uart1.c(62): error:  #20: identifier "bps" is undefined
+    UART_Open(
+ART0, bps);
+src\uart1.c: 0 warnings, 1 error
+compiling queue.c...
+compiling heap_4.c...
 compiling utility.c...
-src\utility.c(103): warning:  #223-D: function "pvPortMalloc" declared implicitly
+src\utility.c(105): warning:  #223-D: function "pvPortMalloc" declared implicitly
       void *memory = (void *)pvPortMalloc(size);
-src\utility.c(104): warning:  #223-D: function "memset" declared implicitly
+src\utility.c(106): warning:  #223-D: function "memset" declared implicitly
       memset(memory, 0, size);
-src\utility.c(118): warning:  #223-D: function "vPortFree" declared implicitly
+src\utility.c(120): warning:  #223-D: function "vPortFree" declared implicitly
           vPortFree(ptr);
 src\utility.c: 3 warnings, 0 errors
-compiling rgb.c...
 compiling main.c...
+src\main.c(395): warning:  #1-D: last line of file ends without a newline
+  #endif
 src\main.c(103): warning:  #177-D: function "uartParser" was declared but never referenced
   static parserState_t uartParser(uint8_t *data, uint16_t dataLength)
-src\main.c: 1 warning, 0 errors
-compiling uart1.c...
-compiling croutine.c...
-compiling event_groups.c...
-compiling list.c...
-compiling queue.c...
+src\main.c: 2 warnings, 0 errors
 compiling timers.c...
-compiling tasks.c...
 compiling stream_buffer.c...
-compiling heap_4.c...
+compiling tasks.c...
 compiling port.c...
-compiling sys.c...
-compiling uart.c...
-compiling retarget.c...
 assembling startup_Nano100Series.s...
+compiling sys.c...
+compiling retarget.c...
+compiling uart.c...
 compiling system_Nano100Series.c...
-linking...
-Program Size: Code=10722 RO-data=266 RW-data=156 ZI-data=11076  
-".\Objects\project.axf" - 0 Error(s), 5 Warning(s).
+".\Objects\project.axf" - 1 Error(s), 6 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -77,11 +81,11 @@ Package Vendor: Nuvoton
                 Nuvoton::Device:Startup:3.01.000
                 Nuvoton ARM Cortex-M NuMicro Family Device Support
    * Component: Startup Version: 3.01.000
-   * Component: UART Version: 3.01.000
    * Component: SYS Version: 3.01.000
+   * Component: UART Version: 3.01.000
 
 <h2>Collection of Component include folders:</h2>
-  C:\Users\vince\Desktop\FreeRTOS\RTE
+  C:\Users\vincentadam\Desktop\FreeRTOS\RTE
   C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include
   C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver
   C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include
@@ -91,19 +95,20 @@ Package Vendor: Nuvoton
    * Component: ARM::CMSIS:CORE:4.1.0
 
    * Component: Nuvoton::Device:Startup:3.01.000
-      Source file:   Device\NANO100BN\Source\ARM\startup_Nano100Series.s
-      Source file:   Device\NANO100BN\Source\system_Nano100Series.c
       Include file:  Device\NANO100BN\Include\Nano100Series.h
+      Source file:   Device\NANO100BN\Source\system_Nano100Series.c
+      Source file:   Device\NANO100BN\Source\ARM\startup_Nano100Series.s
       Source file:   Device\NANO100BN\Driver\retarget.c
-
-   * Component: Nuvoton::Device:Driver:UART:3.01.000
-      Include file:  Device\NANO100BN\Driver\uart.h
-      Source file:   Device\NANO100BN\Driver\uart.c
 
    * Component: Nuvoton::Device:Driver:SYS:3.01.000
       Include file:  Device\NANO100BN\Driver\sys.h
       Source file:   Device\NANO100BN\Driver\sys.c
-Build Time Elapsed:  00:00:07
+
+   * Component: Nuvoton::Device:Driver:UART:3.01.000
+      Include file:  Device\NANO100BN\Driver\uart.h
+      Source file:   Device\NANO100BN\Driver\uart.c
+Target not created.
+Build Time Elapsed:  00:00:00
 </pre>
 </body>
 </html>
