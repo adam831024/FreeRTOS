@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "Nano100Series.h"              // Device header
-
+#include "uart.h"
 /*Free-RTOS include*/
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
@@ -163,14 +163,12 @@ RELOOP:
 					{
 						/*0xAA 0x12 ...*/
 						uint8_t die = FifoPop(&fifoBuffer);
-						// nfUartDebugSend(&die, 1);
 					}
 				}
 				else
 				{
 					/*0x12 0x34 0x56 ...*/
 					uint8_t die = FifoPop(&fifoBuffer);
-					// nfUartDebugSend(&die, 1);
 				}
 			}
 		}
@@ -182,7 +180,6 @@ RELOOP:
 	}
 
 	fifoCnt = FifoCount(&fifoBuffer);
-	// nfUartDebugSend(&fifoCnt, 1);
 	if (fifoCnt >= CMD_HEAD_LEN) /*enough data*/
 	{
 		/*0xAA 0xBB 0x12 0x34 0x56 ...*/
@@ -303,7 +300,7 @@ void rgbTask(void *pvParameters) //TODO: have to move to rgb.c
 						return;
 					}
 					memcpy(tBuf, recData->pData, recData->dataLength);
-					// uartSend(tBuf, recData->dataLength);
+					// uart0Send(tBuf, recData->dataLength);
 					osFree(tBuf);
 				}
 				break;
@@ -352,7 +349,7 @@ static void mainTask(void *pvParameters)
 				data[1] = 0x00;
 				data[2] = 0x01;
 				data[3] = count;
-				// uartSend(data, 4);
+				uart0Send(data, 4);
 				count++;
 				xTimerStart(stateCheckTimerHandle, 0);
 			}
@@ -406,6 +403,18 @@ static void timerInit(void)
 										parserTimerCb /*TimerCallbackFunction_t pxCallbackFunction*/);
 	xTimerStart(stateCheckTimerHandle, 0);
 }
+/******************************************************************************
+ * @brief     init HCLK
+ * @return                              void
+ *******************************************************************************/
+void init_HCLK(void)
+{
+	SYS_UnlockReg();
+	CLK_EnableXtalRC(CLK_PWRCTL_HXT_EN_Msk); /*¶}±ÒCPUªºclock*/
+	CLK_WaitClockReady(CLK_CLKSTATUS_HXT_STB_Msk);
+	CLK_SetHCLK(CLK_CLKSEL0_HCLK_S_HXT, CLK_HCLK_CLK_DIVIDER(1));
+	SYS_LockReg();
+}
 
 /******************************************************************************
  * @brief     main
@@ -423,34 +432,25 @@ int main(int argc, char const *argv[])
 		/*semaphore fail create*/ 
 	} 
 	stackQueueHandle = xQueueCreate(10, sizeof(uint8_t *));
+	init_HCLK();
 	delay_init();
 	taskCreate();
 	timerInit();
+	init_UART0(115200);
 	/*fifo init*/
-	FifoInit(&fifoBuffer, uartFifoBuffer, CMD_MAX_SIZE);	
+	FifoInit(&fifoBuffer, uartFifoBuffer, CMD_MAX_SIZE);
+	printf("init finish");
+
 	taskEXIT_CRITICAL();
 	/* Start the scheduler. */
-    vTaskStartScheduler();
+  vTaskStartScheduler();
 	return 0;
 }
 /*************** END OF FUNCTIONS *********************************************/
 /**
  * further step
- * 1. UART Tx, Rx
- * 2. UART parser, handler
- * 3. data pass through task
- * 4. LCD
- * 5. RGB
+ * 1. UART parser, handler
+ * 2. data pass through task
+ * 3. LCD
+ * 4. RGB
 */
-
-#if 0
-//----- HCLK
-void init_HCLK(void)
-{
-  SYS_UnlockReg();
-  CLK_EnableXtalRC(CLK_PWRCTL_HXT_EN_Msk);
-  CLK_WaitClockReady( CLK_CLKSTATUS_HXT_STB_Msk);
-  CLK_SetHCLK(CLK_CLKSEL0_HCLK_S_HXT,CLK_HCLK_CLK_DIVIDER(1));
-  SYS_LockReg();
-}
-#endif

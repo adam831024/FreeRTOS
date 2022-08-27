@@ -1048,7 +1048,28 @@
           <targetInfo name="Target 1"/>
         </targetInfos>
       </component>
+      <component Cclass="Device" Cgroup="Driver" Csub="CLK" Cvendor="Nuvoton" Cversion="3.01.000" condition="M0NuMicro NANO100BN Device">
+        <package name="NuMicro_DFP" schemaVersion="1.2" url="http://www.nuvoton.com/hq/enu/Documents/KEILSoftwarePack" vendor="Nuvoton" version="1.0.7"/>
+        <targetInfos>
+          <targetInfo name="FreeRTOS"/>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="Driver" Csub="GPIO" Cvendor="Nuvoton" Cversion="3.01.000" condition="M0NuMicro NANO100BN Device">
+        <package name="NuMicro_DFP" schemaVersion="1.2" url="http://www.nuvoton.com/hq/enu/Documents/KEILSoftwarePack" vendor="Nuvoton" version="1.0.7"/>
+        <targetInfos>
+          <targetInfo name="FreeRTOS"/>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
+      </component>
       <component Cclass="Device" Cgroup="Driver" Csub="SYS" Cvendor="Nuvoton" Cversion="3.01.000" condition="M0NuMicro NANO100BN Device">
+        <package name="NuMicro_DFP" schemaVersion="1.2" url="http://www.nuvoton.com/hq/enu/Documents/KEILSoftwarePack" vendor="Nuvoton" version="1.0.7"/>
+        <targetInfos>
+          <targetInfo name="FreeRTOS"/>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="Driver" Csub="Timer" Cvendor="Nuvoton" Cversion="3.01.000" condition="M0NuMicro NANO100BN Device">
         <package name="NuMicro_DFP" schemaVersion="1.2" url="http://www.nuvoton.com/hq/enu/Documents/KEILSoftwarePack" vendor="Nuvoton" version="1.0.7"/>
         <targetInfos>
           <targetInfo name="FreeRTOS"/>

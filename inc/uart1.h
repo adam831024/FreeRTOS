@@ -44,7 +44,9 @@
  * Function Prototypes
  *******************************************************************************/
 void init_UART0(uint32_t baudRate);
-
+void uart0Send(uint8_t *pData, uint16_t dataLength);
+void init_UART1(uint32_t baudRate);
+void uart1Send(uint8_t *pData, uint16_t dataLength);
 #endif /*_UART1_H_*/
 
     /*************** END OF FUNCTIONS *********************************************/
