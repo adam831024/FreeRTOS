@@ -2,6 +2,7 @@
 .\objects\utility.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\utility.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\utility.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\utility.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\utility.o: C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Include\Nano100Series.h
 .\objects\utility.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cm0.h
 .\objects\utility.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmInstr.h
@@ -30,3 +31,15 @@
 .\objects\utility.o: C:\Keil_v5\ARM\PACK\Nuvoton\NuMicro_DFP\1.0.7\Device\NANO100BN\Driver\i2s.h
 .\objects\utility.o: .\inc\lcd.h
 .\objects\utility.o: .\inc\FreeRTOSConfig.h
+.\objects\utility.o: .\inc\utility.h
+.\objects\utility.o: .\inc\main.h
+.\objects\utility.o: .\FreeRTOS\inc\FreeRTOS.h
+.\objects\utility.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\utility.o: .\FreeRTOS\inc\projdefs.h
+.\objects\utility.o: .\FreeRTOS\inc\portable.h
+.\objects\utility.o: .\FreeRTOS\inc\deprecated_definitions.h
+.\objects\utility.o: .\FreeRTOS\port\RVDS\ARM_CM0\portmacro.h
+.\objects\utility.o: .\FreeRTOS\inc\mpu_wrappers.h
+.\objects\utility.o: .\FreeRTOS\inc\queue.h
+.\objects\utility.o: .\FreeRTOS\inc\task.h
+.\objects\utility.o: .\FreeRTOS\inc\list.h

@@ -50,6 +50,7 @@
  *******************************************************************************/
 void init_UART0(uint32_t baudRate)
 {
+#if 0
   SYS_UnlockReg();
   //--- CLK
   CLK_EnableModuleClock(UART0_MODULE);
@@ -63,6 +64,7 @@ void init_UART0(uint32_t baudRate)
   //--- NVIC
   UART_ENABLE_INT(UART0, UART_IER_RDA_IE_Msk);
   NVIC_EnableIRQ(UART0_IRQn);
+#endif
 }
 /*************** END OF FUNCTIONS *********************************************/
 

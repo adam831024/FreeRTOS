@@ -13,13 +13,15 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "Nano100Series.h" 
 
 /*Free-RTOS include*/
 #include "FreeRTOSConfig.h"
 
 /*Application include*/
-
+#include "utility.h"
+#include "main.h"
 /******************************************************************************
  * Module Preprocessor Constants
  *******************************************************************************/
@@ -119,5 +121,27 @@ void osFree(void *ptr)
     {
         vPortFree(ptr);
     }
+}
+/******************************************************************************
+ * DESCRIPTION: 
+ *      send stack task data to another task
+ * @param[in] src
+ *      source task no.
+ * @param[in] dest
+ *      destination task no.
+ * @param[in] pData
+ *      data pointer
+ * @param[in] dataLength
+ *      length of data
+ * RETURNS: TRUE/FALSE 
+*******************************************************************************/
+bool osMessageSend(taskType_t src, taskType_t dest, uint8_t *pData, uint16_t dataLength)
+{
+    taskData_t *tBuf = (taskData_t *)osMalloc(dataLength+sizeof(taskData_t)); //TODO: check size
+    tBuf->src = src;
+    tBuf->dest = dest;
+    tBuf->dataLength = dataLength;
+    memcpy(tBuf->pData, pData, dataLength);
+    return xQueueSendToBack(stackQueueHandle, tBuf, 0);
 }
 /*************** END OF FUNCTIONS *********************************************/

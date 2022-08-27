@@ -24,6 +24,7 @@
 /*Application include*/
 #include "utility.h"
 #include "fifo.h"
+#include "main.h"
 
 /******************************************************************************
  * Module Preprocessor Constants
@@ -77,12 +78,16 @@ uint8_t uartData[CMD_MAX_SIZE] = {0};
 TimerHandle_t stateCheckTimerHandle = NULL;
 TimerHandle_t parserTimerHandle = NULL;
 
+/*stack*/
+taskType_t taskType;
+QueueHandle_t stackQueueHandle = NULL;
+
 /******************************************************************************
  * Function Prototypes
  *******************************************************************************/
 static void mainTask(void *pvParameters);
 static void uartTask(void *pvParameters);
-
+void rgbTask(void *pvParameters); //TODO:need to move
 /******************************************************************************
  * Function Definitions
  *******************************************************************************/
@@ -91,8 +96,9 @@ static void uartTask(void *pvParameters);
  */
 void taskCreate(void)
 {
-	xTaskCreate(uartTask, "uartTask", 2048 /*usStackDepth = 1024*16bits*/, NULL /*parameter*/, 5 /*Priority*/, NULL /*CreatedTaskHandle*/);
-	xTaskCreate(mainTask, "mainTask", 1024, NULL /*pvParameters parameter for C function*/, 4, NULL /*pxCreatedTask*/);
+	xTaskCreate(uartTask, "uartTask", 2048 /*usStackDepth = 1024*16bits*/, (void *)UART_TASK, 5 /*Priority*/, NULL /*CreatedTaskHandle*/);
+	xTaskCreate(mainTask, "mainTask", 1024, (void *)MAIN_TASK, 4, NULL /*pxCreatedTask*/);
+	xTaskCreate(rgbTask, "rgbTask", 512, (void *)RGB_TASK, 3, NULL /*pxCreatedTask*/);
 }
 /******************************************************************************
  * @brief     UART data parser
@@ -275,12 +281,51 @@ static void uartTask(void *pvParameters)
 }
 
 /******************************************************************************
+ * @brief     RGB event task
+ * @param[out] pvParameters             event arg
+ * @return                              void
+ *******************************************************************************/
+void rgbTask(void *pvParameters) //TODO: have to move to rgb.c
+{
+	taskData_t *recData = NULL;
+	uint8_t srcTask = (uint8_t)pvParameters;
+	while (1)
+	{
+		if(pdTRUE==xQueueReceive(stackQueueHandle, recData, 0))
+		{
+			switch (recData->dest)
+			{
+				case MAIN_TASK:
+				{
+					uint8_t *tBuf = (uint8_t *)osMalloc((recData->dataLength)*sizeof(uint8_t));
+					if(!tBuf)
+					{
+						return;
+					}
+					memcpy(tBuf, recData->pData, recData->dataLength);
+					// uartSend(tBuf, recData->dataLength);
+					osFree(tBuf);
+				}
+				break;
+				default:
+					break;
+			}
+			if(recData)
+			{
+				osFree(recData);
+			}
+		}
+	}
+	
+}
+/******************************************************************************
  * @brief     OS event task
  * @param[out] pvParameters             event arg
  * @return                              void
  *******************************************************************************/
 static void mainTask(void *pvParameters)
 {
+	uint8_t srcTask = (uint8_t)pvParameters;
 	while (1)
 	{
 		/*semaphore check*/
@@ -288,13 +333,28 @@ static void mainTask(void *pvParameters)
 		{
 			if (events & OS_EVT_6)
 			{
+				uint8_t *tBuf = (uint8_t *)osMalloc(4);
 				events &= ~OS_EVT_6;
-				/*do something */
+				tBuf[0] = 0xBB;
+				tBuf[1] = 0x00;	/*size*/
+				tBuf[2] = 0x01;	/*size*/
+				tBuf[3] = 0xFF;
+
+				osMessageSend(srcTask, RGB_TASK, tBuf, 4);
+				osFree(tBuf);
 			}
 			else if (events & STATE_CHECK_EVT)
 			{
+				uint8_t data[4];
+				static count = 0;
 				events &= ~STATE_CHECK_EVT;
-				/*do something */
+				data[0] = 0xAA;
+				data[1] = 0x00;
+				data[2] = 0x01;
+				data[3] = count;
+				// uartSend(data, 4);
+				count++;
+				xTimerStart(stateCheckTimerHandle, 0);
 			}
 			/*release semaphore*/
 			xSemaphoreGive(eventsHandle);
@@ -336,7 +396,7 @@ static void timerInit(void)
 {
 	stateCheckTimerHandle = xTimerCreate("stateCheck" /* The timer name. */,
 										1000 / portTICK_PERIOD_MS /*const TickType_t xTimerPeriodInTicks*/,
-										pdTRUE /*const UBaseType_t uxAutoReload, pdFALSE for on shot, pdTRUE for period*/,
+										pdFALSE /*const UBaseType_t uxAutoReload, pdFALSE for on shot, pdTRUE for period*/,
 										NULL /*void * const pvTimerID*/,
 										stateCheckTimerCb /*TimerCallbackFunction_t pxCallbackFunction*/);
 	parserTimerHandle = xTimerCreate("nfParserTimer" /* The timer name. */,
@@ -362,6 +422,7 @@ int main(int argc, char const *argv[])
 	{ 
 		/*semaphore fail create*/ 
 	} 
+	stackQueueHandle = xQueueCreate(10, sizeof(uint8_t *));
 	delay_init();
 	taskCreate();
 	timerInit();
