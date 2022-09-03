@@ -53,7 +53,7 @@ void delay_ms(uint16_t ms);
 void delay_init(void);
 void *osMalloc(uint16_t size);
 void osFree(void *ptr);
-bool osMessageSend(taskType_t src, taskType_t dest, uint8_t *pData, uint16_t dataLength);
+bool osMessageSend(taskType_t src, taskType_t dest, void *pData);
 #endif /*_UTILITY_H_*/
 
 /*************** END OF FUNCTIONS *********************************************/

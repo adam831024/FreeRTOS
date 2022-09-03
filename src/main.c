@@ -67,7 +67,6 @@ typedef enum
  *******************************************************************************/
 /*OS event */
 static uint16_t events;
-SemaphoreHandle_t eventsHandle = NULL;
 
 /*fifo*/
 Fifo_t fifoBuffer;
@@ -87,7 +86,7 @@ QueueHandle_t stackQueueHandle = NULL;
  *******************************************************************************/
 static void mainTask(void *pvParameters);
 static void uartTask(void *pvParameters);
-void rgbTask(void *pvParameters); //TODO:need to move
+void peripheralTask(void *pvParameters);
 /******************************************************************************
  * Function Definitions
  *******************************************************************************/
@@ -98,7 +97,7 @@ void taskCreate(void)
 {
 	xTaskCreate(uartTask, "uartTask", 2048 /*usStackDepth = 1024*16bits*/, (void *)UART_TASK, 5 /*Priority*/, NULL /*CreatedTaskHandle*/);
 	xTaskCreate(mainTask, "mainTask", 1024, (void *)MAIN_TASK, 4, NULL /*pxCreatedTask*/);
-	xTaskCreate(rgbTask, "rgbTask", 512, (void *)RGB_TASK, 3, NULL /*pxCreatedTask*/);
+	xTaskCreate(peripheralTask, "peripheralTask", 512, (void *)PERIPHERAL_TASK, 3, NULL /*pxCreatedTask*/);
 }
 /******************************************************************************
  * @brief     UART data parser
@@ -249,7 +248,7 @@ RELOOP:
  * @param[out] pvParameters             event arg
  * @return                              void
  *******************************************************************************/
-static void uartTask(void *pvParameters)
+static void uartTask(void *pvParameters) //TODO: delete
 {
 	while (1)
 	{
@@ -282,38 +281,57 @@ static void uartTask(void *pvParameters)
  * @param[out] pvParameters             event arg
  * @return                              void
  *******************************************************************************/
-void rgbTask(void *pvParameters) //TODO: have to move to rgb.c
+void peripheralTask(void *pvParameters) //TODO: have to move to rgb.c
 {
-	taskData_t *recData = NULL;
 	uint8_t srcTask = (uint8_t)pvParameters;
+	taskData_t *recData = NULL;
+	msgPayload_t *tPayload = NULL;
 	while (1)
 	{
-		if(pdTRUE==xQueueReceive(stackQueueHandle, recData, 0))
+		/*queue check */
+		if(uxQueueMessagesWaiting( stackQueueHandle ))
 		{
-			switch (recData->dest)
+			if( xQueuePeek( stackQueueHandle, recData, 0 ) )
 			{
-				case MAIN_TASK:
+				if(recData->dest == PERIPHERAL_TASK)
 				{
-					uint8_t *tBuf = (uint8_t *)osMalloc((recData->dataLength)*sizeof(uint8_t));
-					if(!tBuf)
+					tPayload = (msgPayload_t*)recData->pData;
+					xQueueReceive( stackQueueHandle, recData, 0 );
+					switch(tPayload->eventID)
 					{
-						return;
+						// case RGB_EVT:
+						{
+							uint8_t *tBuf = (uint8_t *)osMalloc(4*sizeof(uint8_t));
+							tBuf[0] = 0xBB;
+							tBuf[1] = 0x00;	/*size*/
+							tBuf[2] = 0x01;	/*size*/
+							tBuf[3] = 0xFF;
+							uart0Send(tBuf, 4);
+						}
+						break;
+						// case LCD_EVT:
+						{
+							uint8_t data[4];
+							static count = 0;
+							data[0] = 0xAA;
+							data[1] = 0x00;
+							data[2] = 0x01;
+							data[3] = count;
+							uart0Send(data, 4);
+							count++;
+						}
+						break;
+						default:
+							break;
 					}
-					memcpy(tBuf, recData->pData, recData->dataLength);
-					// uart0Send(tBuf, recData->dataLength);
-					osFree(tBuf);
+					if(recData)
+					{
+						osFree(recData);
+					}
 				}
-				break;
-				default:
-					break;
-			}
-			if(recData)
-			{
-				osFree(recData);
 			}
 		}
 	}
-	
 }
 /******************************************************************************
  * @brief     OS event task
@@ -323,38 +341,52 @@ void rgbTask(void *pvParameters) //TODO: have to move to rgb.c
 static void mainTask(void *pvParameters)
 {
 	uint8_t srcTask = (uint8_t)pvParameters;
+	taskData_t *recData = NULL;
+	msgPayload_t *tPayload = NULL;
 	while (1)
 	{
-		/*semaphore check*/
-		if (uxSemaphoreGetCount(eventsHandle))
+		/*queue check */
+		if(uxQueueMessagesWaiting( stackQueueHandle ))
 		{
-			if (events & OS_EVT_6)
+			if( xQueuePeek( stackQueueHandle, recData, 0 ) )
 			{
-				uint8_t *tBuf = (uint8_t *)osMalloc(4);
-				events &= ~OS_EVT_6;
-				tBuf[0] = 0xBB;
-				tBuf[1] = 0x00;	/*size*/
-				tBuf[2] = 0x01;	/*size*/
-				tBuf[3] = 0xFF;
-
-				osMessageSend(srcTask, RGB_TASK, tBuf, 4);
-				osFree(tBuf);
+				if(recData->dest == MAIN_TASK)
+				{
+					xQueueReceive( stackQueueHandle, recData, 0 );
+					tPayload = (msgPayload_t*)recData->pData;
+					switch(tPayload->eventID)
+					{
+						case OS_EVT_6:
+						{
+							uint8_t *tBuf = (uint8_t *)osMalloc(4*sizeof(uint8_t));
+							tBuf[0] = 0xBB;
+							tBuf[1] = 0x00;	/*size*/
+							tBuf[2] = 0x01;	/*size*/
+							tBuf[3] = 0xFF;
+							uart0Send(tBuf, 4);
+						}
+						break;
+						case STATE_CHECK_EVT:
+						{
+							uint8_t data[4];
+							static count = 0;
+							data[0] = 0xAA;
+							data[1] = 0x00;
+							data[2] = 0x01;
+							data[3] = count;
+							uart0Send(data, 4);
+							count++;
+						}
+						break;
+						default:
+							break;
+					}
+					if(recData)
+					{
+						osFree(recData);
+					}
+				}
 			}
-			else if (events & STATE_CHECK_EVT)
-			{
-				uint8_t data[4];
-				static count = 0;
-				events &= ~STATE_CHECK_EVT;
-				data[0] = 0xAA;
-				data[1] = 0x00;
-				data[2] = 0x01;
-				data[3] = count;
-				uart0Send(data, 4);
-				count++;
-				xTimerStart(stateCheckTimerHandle, 0);
-			}
-			/*release semaphore*/
-			xSemaphoreGive(eventsHandle);
 		}
 	}
 }
@@ -367,8 +399,9 @@ static void mainTask(void *pvParameters)
 static void stateCheckTimerCb(TimerHandle_t xTimer)
 {
 	/*run every second*/
-	events |= STATE_CHECK_EVT; // arg or to events
-	xSemaphoreTake(eventsHandle, 0);
+	uint8_t event = STATE_CHECK_EVT; // arg or to events
+	xTimerStart(stateCheckTimerHandle, 0);
+	osMessageSend(NULL, MAIN_TASK, &event);
 }
 
 /******************************************************************************
@@ -426,11 +459,6 @@ int main(int argc, char const *argv[])
 {
 	taskENTER_CRITICAL();
 
-	eventsHandle = xSemaphoreCreateCounting(10, 0);
-	if( !eventsHandle ) 
-	{ 
-		/*semaphore fail create*/ 
-	} 
 	stackQueueHandle = xQueueCreate(10, sizeof(uint8_t *));
 	init_HCLK();
 	delay_init();

@@ -14,14 +14,14 @@
 ".\objects\stream_buffer.o"
 ".\objects\heap_4.o"
 ".\objects\port.o"
+".\objects\clk.o"
+".\objects\gpio.o"
 ".\objects\sys.o"
+".\objects\timer.o"
 ".\objects\uart.o"
 ".\objects\retarget.o"
 ".\objects\startup_nano100series.o"
 ".\objects\system_nano100series.o"
-".\objects\clk.o"
-".\objects\gpio.o"
-".\objects\timer.o"
 --ro-base 0x00000000 --entry 0x00000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list ".\Listings\project.map" -o .\Objects\project.axf

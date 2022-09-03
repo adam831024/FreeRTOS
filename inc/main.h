@@ -43,17 +43,23 @@ typedef enum
 {
     MAIN_TASK = 0,
     UART_TASK = 1, 
-    LCD_TASK =  2,
-    RGB_TASK =  3    
+    PERIPHERAL_TASK =  2,
 }taskType_t;
 
 typedef struct 
 {
     taskType_t src;
     taskType_t dest;
-    uint16_t dataLength;
     void *pData;
 }taskData_t;
+
+typedef struct 
+{
+    uint8_t eventID;
+    uint8_t dataLen[2];
+    uint8_t *data;
+}msgPayload_t;
+
 /******************************************************************************
  * Variables
  *******************************************************************************/

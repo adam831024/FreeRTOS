@@ -57,6 +57,9 @@ void delay_init(void)
     SysTick_Config(SystemCoreClock / 1000);
     fac_us = SystemCoreClock / 4000000; // TODO: not sure
     fac_ms = (uint16_t)fac_us * 1000;
+#ifdef ADAM_DEBUG
+    printf("fac_us = %d, fac_ms = %dr\n", fac_us, fac_ms);
+#endif
 }
 
 /******************************************************************************
@@ -131,17 +134,14 @@ void osFree(void *ptr)
  *      destination task no.
  * @param[in] pData
  *      data pointer
- * @param[in] dataLength
- *      length of data
  * RETURNS: TRUE/FALSE 
 *******************************************************************************/
-bool osMessageSend(taskType_t src, taskType_t dest, uint8_t *pData, uint16_t dataLength)
+bool osMessageSend(taskType_t src, taskType_t dest, void *pData)
 {
-    taskData_t *tBuf = (taskData_t *)osMalloc(dataLength+sizeof(taskData_t)); //TODO: check size
+    taskData_t *tBuf = (taskData_t *)osMalloc(sizeof(taskData_t));
     tBuf->src = src;
     tBuf->dest = dest;
-    tBuf->dataLength = dataLength;
-    memcpy(tBuf->pData, pData, dataLength);
+    tBuf->pData = pData;
     return xQueueSendToBack(stackQueueHandle, tBuf, 0);
 }
 /*************** END OF FUNCTIONS *********************************************/
