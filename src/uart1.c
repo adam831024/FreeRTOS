@@ -118,7 +118,7 @@ void init_UART1(uint32_t baudrate)
 void UART1_IRQHandler(void)
 {
   /*the same as UART_WRITE(UART1, UART1->RBR)*/
-  UART0->THR = UART1->RBR;
+  UART1->THR = UART1->RBR;
 }
 /******************************************************************************
  * @brief     UART1 Tx send

@@ -57,9 +57,7 @@ void delay_init(void)
     SysTick_Config(SystemCoreClock / 1000);
     fac_us = SystemCoreClock / 4000000; // TODO: not sure
     fac_ms = (uint16_t)fac_us * 1000;
-#ifdef ADAM_DEBUG
-    printf("fac_us = %d, fac_ms = %dr\n", fac_us, fac_ms);
-#endif
+    printf("fac_us = %d, fac_ms = %d, SystemCoreClock  =%d\r\n",fac_us, fac_ms, SystemCoreClock);
 }
 
 /******************************************************************************

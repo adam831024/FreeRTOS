@@ -85,7 +85,7 @@ QueueHandle_t stackQueueHandle = NULL;
  * Function Prototypes
  *******************************************************************************/
 static void mainTask(void *pvParameters);
-static void uartTask(void *pvParameters);
+// static void uartTask(void *pvParameters);
 void peripheralTask(void *pvParameters);
 /******************************************************************************
  * Function Definitions
@@ -95,9 +95,9 @@ void peripheralTask(void *pvParameters);
  */
 void taskCreate(void)
 {
-	xTaskCreate(uartTask, "uartTask", 2048 /*usStackDepth = 1024*16bits*/, (void *)UART_TASK, 5 /*Priority*/, NULL /*CreatedTaskHandle*/);
+	// xTaskCreate(uartTask, "uartTask", 2048 /*usStackDepth = 1024*16bits*/, (void *)UART_TASK, 5 /*Priority*/, NULL /*CreatedTaskHandle*/);
 	xTaskCreate(mainTask, "mainTask", 1024, (void *)MAIN_TASK, 4, NULL /*pxCreatedTask*/);
-	xTaskCreate(peripheralTask, "peripheralTask", 512, (void *)PERIPHERAL_TASK, 3, NULL /*pxCreatedTask*/);
+	// xTaskCreate(peripheralTask, "peripheralTask", 512, (void *)PERIPHERAL_TASK, 3, NULL /*pxCreatedTask*/);
 }
 /******************************************************************************
  * @brief     UART data parser
@@ -248,6 +248,7 @@ RELOOP:
  * @param[out] pvParameters             event arg
  * @return                              void
  *******************************************************************************/
+ #if 0
 static void uartTask(void *pvParameters) //TODO: delete
 {
 	while (1)
@@ -275,7 +276,7 @@ static void uartTask(void *pvParameters) //TODO: delete
 		}
 	}
 }
-
+#endif
 /******************************************************************************
  * @brief     RGB event task
  * @param[out] pvParameters             event arg
@@ -345,6 +346,7 @@ static void mainTask(void *pvParameters)
 	msgPayload_t *tPayload = NULL;
 	while (1)
 	{
+#if 0
 		/*queue check */
 		if(uxQueueMessagesWaiting( stackQueueHandle ))
 		{
@@ -388,6 +390,7 @@ static void mainTask(void *pvParameters)
 				}
 			}
 		}
+#endif
 	}
 }
 
@@ -400,8 +403,11 @@ static void stateCheckTimerCb(TimerHandle_t xTimer)
 {
 	/*run every second*/
 	uint8_t event = STATE_CHECK_EVT; // arg or to events
-	xTimerStart(stateCheckTimerHandle, 0);
-	osMessageSend(NULL, MAIN_TASK, &event);
+	static uint8_t count = 0;
+	uart0Send(&count, 1);
+	count++;
+	// xTimerStart(stateCheckTimerHandle, 0);
+	// osMessageSend(NULL, MAIN_TASK, &event);
 }
 
 /******************************************************************************
@@ -426,14 +432,25 @@ static void timerInit(void)
 {
 	stateCheckTimerHandle = xTimerCreate("stateCheck" /* The timer name. */,
 										1000 / portTICK_PERIOD_MS /*const TickType_t xTimerPeriodInTicks*/,
-										pdFALSE /*const UBaseType_t uxAutoReload, pdFALSE for on shot, pdTRUE for period*/,
+										pdTRUE /*const UBaseType_t uxAutoReload, pdFALSE for on shot, pdTRUE for period*/,
 										NULL /*void * const pvTimerID*/,
 										stateCheckTimerCb /*TimerCallbackFunction_t pxCallbackFunction*/);
+	#if 0
 	parserTimerHandle = xTimerCreate("nfParserTimer" /* The timer name. */,
 										5000 / portTICK_PERIOD_MS /*const TickType_t xTimerPeriodInTicks*/,
 										pdFALSE /*const UBaseType_t uxAutoReload, pdFALSE for on shot, pdTRUE for period*/,
 										NULL /*void * const pvTimerID*/,
 										parserTimerCb /*TimerCallbackFunction_t pxCallbackFunction*/);
+	#endif
+	if(stateCheckTimerHandle)
+	{
+		printf("timer create success\r\n");
+	}
+	else
+	{
+		printf("timer create fail\r\n");
+		
+	}
 	xTimerStart(stateCheckTimerHandle, 0);
 }
 /******************************************************************************
@@ -443,7 +460,7 @@ static void timerInit(void)
 void init_HCLK(void)
 {
 	SYS_UnlockReg();
-	CLK_EnableXtalRC(CLK_PWRCTL_HXT_EN_Msk); /*¶}±ÒCPUªºclock*/
+	CLK_EnableXtalRC(CLK_PWRCTL_HXT_EN_Msk); 
 	CLK_WaitClockReady(CLK_CLKSTATUS_HXT_STB_Msk);
 	CLK_SetHCLK(CLK_CLKSEL0_HCLK_S_HXT, CLK_HCLK_CLK_DIVIDER(1));
 	SYS_LockReg();
@@ -459,26 +476,23 @@ int main(int argc, char const *argv[])
 {
 	taskENTER_CRITICAL();
 
-	stackQueueHandle = xQueueCreate(10, sizeof(uint8_t *));
 	init_HCLK();
+	init_UART0(115200);
 	delay_init();
+	stackQueueHandle = xQueueCreate(10, sizeof(taskData_t *));
+	if(!stackQueueHandle)
+	{
+		printf("queue init fail");
+	}
 	taskCreate();
 	timerInit();
-	init_UART0(115200);
 	/*fifo init*/
 	FifoInit(&fifoBuffer, uartFifoBuffer, CMD_MAX_SIZE);
 	printf("init finish");
-
 	taskEXIT_CRITICAL();
 	/* Start the scheduler. */
   vTaskStartScheduler();
 	return 0;
 }
 /*************** END OF FUNCTIONS *********************************************/
-/**
- * further step
- * 1. UART parser, handler
- * 2. data pass through task
- * 3. LCD
- * 4. RGB
-*/
+//TODO: timer issue
