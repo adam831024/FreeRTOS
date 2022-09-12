@@ -50,7 +50,7 @@
  *******************************************************************************/
 void delay_us(uint16_t us);
 void delay_ms(uint16_t ms);
-void delay_init(void);
+void delayInit(void);
 void *osMalloc(uint16_t size);
 void osFree(void *ptr);
 bool osMessageSend(taskType_t src, taskType_t dest, void *pData);

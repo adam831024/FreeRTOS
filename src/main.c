@@ -96,8 +96,8 @@ void peripheralTask(void *pvParameters);
 void taskCreate(void)
 {
 	// xTaskCreate(uartTask, "uartTask", 2048 /*usStackDepth = 1024*16bits*/, (void *)UART_TASK, 5 /*Priority*/, NULL /*CreatedTaskHandle*/);
-	xTaskCreate(mainTask, "mainTask", 1024, (void *)MAIN_TASK, 4, NULL /*pxCreatedTask*/);
-	// xTaskCreate(peripheralTask, "peripheralTask", 512, (void *)PERIPHERAL_TASK, 3, NULL /*pxCreatedTask*/);
+	xTaskCreate(mainTask, "mainTask", 1024, (void *)MAIN_TASK, 5, NULL /*pxCreatedTask*/);
+	xTaskCreate(peripheralTask, "peripheralTask", 512, (void *)PERIPHERAL_TASK, 5, NULL /*pxCreatedTask*/);
 }
 /******************************************************************************
  * @brief     UART data parser
@@ -282,8 +282,9 @@ static void uartTask(void *pvParameters) //TODO: delete
  * @param[out] pvParameters             event arg
  * @return                              void
  *******************************************************************************/
-void peripheralTask(void *pvParameters) //TODO: have to move to rgb.c
+void peripheralTask(void *pvParameters)
 {
+#if 0
 	uint8_t srcTask = (uint8_t)pvParameters;
 	taskData_t *recData = NULL;
 	msgPayload_t *tPayload = NULL;
@@ -333,6 +334,11 @@ void peripheralTask(void *pvParameters) //TODO: have to move to rgb.c
 			}
 		}
 	}
+#else
+	uint8_t debug[] = {"peripheral"};
+	uart0Send(debug, sizeof(debug));
+	vTaskDelay(100);
+#endif
 }
 /******************************************************************************
  * @brief     OS event task
@@ -341,12 +347,12 @@ void peripheralTask(void *pvParameters) //TODO: have to move to rgb.c
  *******************************************************************************/
 static void mainTask(void *pvParameters)
 {
+#if 0
 	uint8_t srcTask = (uint8_t)pvParameters;
 	taskData_t *recData = NULL;
 	msgPayload_t *tPayload = NULL;
 	while (1)
 	{
-#if 0
 		/*queue check */
 		if(uxQueueMessagesWaiting( stackQueueHandle ))
 		{
@@ -390,8 +396,12 @@ static void mainTask(void *pvParameters)
 				}
 			}
 		}
-#endif
 	}
+#else
+	uint8_t debug[4] = {"main"};
+	uart0Send(debug, sizeof(debug));
+	vTaskDelay(100);
+#endif
 }
 
 /******************************************************************************
@@ -478,7 +488,7 @@ int main(int argc, char const *argv[])
 
 	init_HCLK();
 	init_UART0(115200);
-	delay_init();
+	delayInit();
 	stackQueueHandle = xQueueCreate(10, sizeof(taskData_t *));
 	if(!stackQueueHandle)
 	{
@@ -491,7 +501,7 @@ int main(int argc, char const *argv[])
 	printf("init finish");
 	taskEXIT_CRITICAL();
 	/* Start the scheduler. */
-  vTaskStartScheduler();
+  	vTaskStartScheduler();
 	return 0;
 }
 /*************** END OF FUNCTIONS *********************************************/
