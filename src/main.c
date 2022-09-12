@@ -455,13 +455,12 @@ static void timerInit(void)
 	if(stateCheckTimerHandle)
 	{
 		printf("timer create success\r\n");
+		xTimerStart(stateCheckTimerHandle, 0);
 	}
 	else
 	{
 		printf("timer create fail\r\n");
-		
 	}
-	xTimerStart(stateCheckTimerHandle, 0);
 }
 /******************************************************************************
  * @brief     init HCLK
